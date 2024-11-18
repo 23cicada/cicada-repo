@@ -1,3 +1,18 @@
+# Yarn
+
+[Installation](https://yarnpkg.com/getting-started/install)
+
+[Plug'n'Play](https://yarnpkg.com/features/pnp)
+
+[Zero-installs](https://yarnpkg.com/features/caching#zero-installs)
+
+[Corepack](https://yarnpkg.com/corepack)
+
+Starting a new library inside a monorepo directly
+```shell
+yarn packages/new-lib init
+```
+
 # Turborepo starter
 
 This is an official starter Turborepo.
