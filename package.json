@@ -1,5 +1,5 @@
 {
-  "name": "my-turborepo",
+  "name": "cicada-repo",
   "private": true,
   "scripts": {
     "build": "turbo build",
