@@ -1,0 +1,10 @@
+{
+  "name": "@repo/prettier-config",
+  "packageManager": "yarn@4.5.1",
+  "version": "0.0.0",
+  "private": true,
+  "exports": "./.prettierrc.mjs",
+  "devDependencies": {
+    "prettier": "3.3.3"
+  }
+}
