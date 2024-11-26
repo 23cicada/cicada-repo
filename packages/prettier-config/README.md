@@ -25,3 +25,7 @@ const config = {
 
 export default config;
 ```
+
+### QA
+
+[node_modules/.cache/prettier](https://github.com/prettier/prettier/issues/13032#issuecomment-1866758574)

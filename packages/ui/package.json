@@ -11,7 +11,8 @@
     "lint": "eslint . --max-warnings 0",
     "generate:component": "turbo gen react-component",
     "check-types": "tsc --noEmit",
-    "prettier-check": "prettier **/* --check --ignore-unknown"
+    "prettier": "prettier **/* --write --ignore-unknown --cache-location=.prettiercache",
+    "prettier-check": "prettier **/* --check --ignore-unknown --cache-location=.prettiercache"
   },
   "devDependencies": {
     "@repo/prettier-config": "*",
