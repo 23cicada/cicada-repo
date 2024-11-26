@@ -2257,6 +2257,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["husky", [\
+      ["npm:9.1.7", {\
+        "packageLocation": "./.yarn/cache/husky-npm-9.1.7-5b02eaabc4-35bb110a71.zip/node_modules/husky/",\
+        "packageDependencies": [\
+          ["husky", "npm:9.1.7"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["iconv-lite", [\
       ["npm:0.4.24", {\
         "packageLocation": "./.yarn/cache/iconv-lite-npm-0.4.24-c5c4ac6695-c6886a24cc.zip/node_modules/iconv-lite/",\
@@ -4178,6 +4187,7 @@ const RAW_RUNTIME_STATE =
           ["@types/node", "npm:20.17.6"],\
           ["@types/react", "npm:18.3.1"],\
           ["@types/react-dom", "npm:18.3.0"],\
+          ["husky", "npm:9.1.7"],\
           ["next", "virtual:e293270790bda2411a3626e57e15862403457209cbe755a222c752c37c8f53870ac5708914fca9c46ad11f81505a4af613c8b5e4bba765909191bb5f14d3b656#npm:15.0.3"],\
           ["prettier", "npm:3.3.3"],\
           ["react", "npm:19.0.0-rc-66855b96-20241106"],\
