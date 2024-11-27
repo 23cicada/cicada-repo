@@ -8,8 +8,10 @@
     "start": "next start",
     "lint": "next lint",
     "check-types": "tsc --noEmit",
-    "prettier": "prettier **/* --write --ignore-unknown --cache-location=.prettiercache",
-    "prettier-check": "prettier **/* --check --ignore-unknown --cache-location=.prettiercache"
+    "format-base": "prettier --ignore-unknown --cache-location=.prettiercache",
+    "format": "yarn format-base --write **/*",
+    "format-check": "yarn format-base --check **/*",
+    "format-staged": "yarn format-base --write"
   },
   "dependencies": {
     "@repo/ui": "*",

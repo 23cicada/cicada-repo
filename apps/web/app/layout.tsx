@@ -18,9 +18,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
       {/* https://github.com/vercel/next.js/discussions/72035#discussioncomment-11104570 */}
