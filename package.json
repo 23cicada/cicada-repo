@@ -6,9 +6,12 @@
     "dev": "turbo dev",
     "lint": "turbo lint",
     "format-check": "turbo prettier-check",
-    "format": "turbo prettier"
+    "format": "turbo prettier",
+    "prepare": "husky"
   },
   "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^15.2.10",
     "turbo": "^2.3.0",
     "typescript": "5.5.4"
   },

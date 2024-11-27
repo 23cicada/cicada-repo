@@ -12,7 +12,13 @@ Starting a new library inside a monorepo directly
 ```shell
 yarn packages/new-lib init
 ```
-
+# Husky
+```shell
+yarn add --dev husky
+```
+```shell
+npx husky init
+```
 # Turborepo starter
 
 This is an official starter Turborepo.
