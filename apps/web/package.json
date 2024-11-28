@@ -7,11 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "check-types": "tsc --noEmit",
-    "format-base": "prettier --ignore-unknown --cache-location=.prettiercache",
-    "format": "yarn format-base --write **/*",
-    "format-check": "yarn format-base --check **/*",
-    "format-staged": "yarn format-base --write"
+    "format-check": "format"
   },
   "dependencies": {
     "@repo/ui": "*",

@@ -452,6 +452,8 @@ __metadata:
   resolution: "@repo/prettier-config@workspace:packages/prettier-config"
   dependencies:
     prettier: "npm:3.3.3"
+  bin:
+    format: ./bin/format.js
   languageName: unknown
   linkType: soft
 
