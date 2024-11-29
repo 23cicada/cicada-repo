@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format-check": "format"
+    "format-staged": "format staged",
+    "format-write": "format write",
+    "format-check": "format check"
   },
   "dependencies": {
     "@repo/ui": "*",
