@@ -2,6 +2,7 @@
 const child_process = require('child_process')
 const process = require('process')
 
+console.log('process.argv', process.argv)
 const type = process.argv.slice(2)[0]
 let command = 'prettier --ignore-unknown --cache-location=.prettiercache '
 switch (type) {
