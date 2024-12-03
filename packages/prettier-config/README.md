@@ -26,6 +26,6 @@ const config = {
 export default config;
 ```
 
-### QA
+Create command line tool
 
-[node_modules/.cache/prettier](https://github.com/prettier/prettier/issues/13032#issuecomment-1866758574)
+[Building a simple command line tool with npm](https://blog.npmjs.org/post/118810260230/building-a-simple-command-line-tool-with-npm)
