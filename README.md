@@ -8,14 +8,6 @@
 
 [Corepack](https://yarnpkg.com/corepack)
 
-[//]: # (Starting a new library inside a monorepo directly)
-
-[//]: # (```shell)
-
-[//]: # (yarn packages/new-lib init)
-
-[//]: # (```)
-
 
 ## Install `husky` `lint-staged` in the root of the repo.
 `Husky`
@@ -34,3 +26,6 @@ Create a `.lintstagedrc.mjs` in each package.
 Create an "empty" `.lintstagedrc.mjs` to the root of the repo.
 
 [How to use lint-staged in a multi-package monorepo?](https://github.com/lint-staged/lint-staged?tab=readme-ov-file#how-to-use-lint-staged-in-a-multi-package-monorepo)
+
+## Create a new workspace
+`turbo gen workspace --name @repo/xxx --type package|app`

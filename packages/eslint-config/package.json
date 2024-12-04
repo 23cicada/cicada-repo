@@ -1,9 +1,11 @@
 {
   "name": "@repo/eslint-config",
-  "devDependencies": {
-    "@eslint/js": "^9.15.0",
-    "eslint": "^9.15.0",
-    "typescript": "^5.7.2",
-    "typescript-eslint": "^8.15.0"
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "echo 'Add dev script here'",
+    "build": "echo 'Add build script here'",
+    "test": "echo 'Add test script here'",
+    "lint": "echo 'Add lint script here'"
   }
 }
