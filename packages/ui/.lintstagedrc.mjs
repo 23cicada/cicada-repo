@@ -1,6 +1,6 @@
 export default {
   '**/*': [
-    'yarn eslint --fix',
+    'yarn eslint --max-warnings 0',
     'yarn format-staged'
   ],
 }
