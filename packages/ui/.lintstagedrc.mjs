@@ -1,3 +1,6 @@
 export default {
-  '**/*': 'yarn format-staged',
+  '**/*': [
+    'yarn eslint --fix',
+    'yarn format-staged'
+  ],
 }
