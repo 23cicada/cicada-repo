@@ -6,6 +6,16 @@ import pluginReact from "eslint-plugin-react";
 export default [
   ...eslintConfigBase,
   pluginReact.configs.flat.recommended,
+  // https://github.com/jsx-eslint/eslint-plugin-react?tab=readme-ov-file#configuration-legacy-eslintrc-
+  pluginReact.configs.flat['jsx-runtime'],
+  {
+    settings: {
+      react: {
+        // React version. "detect" automatically picks the version you have installed.
+        version: "detect"
+      }
+    }
+  },
   {
     plugins: {
       'react-hooks': pluginReactHooks

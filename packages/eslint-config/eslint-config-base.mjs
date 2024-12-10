@@ -22,4 +22,9 @@ export default [
       },
     },
   },
+  // https://typescript-eslint.io/troubleshooting/typed-linting/#i-get-errors-telling-me--was-not-found-by-the-project-service-consider-either-including-it-in-the-tsconfigjson-or-including-it-in-allowdefaultproject
+  {
+    files: ['**/*.mjs'],
+    ...tseslint.configs.disableTypeChecked
+  },
 ];
