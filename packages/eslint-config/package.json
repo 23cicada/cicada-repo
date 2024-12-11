@@ -1,0 +1,22 @@
+{
+  "name": "@repo/eslint-config",
+  "version": "0.0.0",
+  "private": true,
+  "exports": {
+    "./eslint-config-react": "./eslint-config-react.mjs",
+    "./eslint-config-next": "./eslint-config-next.mjs"
+  },
+  "devDependencies": {
+    "@eslint/compat": "^1.2.4",
+    "@eslint/eslintrc": "^3.2.0",
+    "@eslint/js": "^9.16.0",
+    "eslint": "^9.16.0",
+    "eslint-config-next": "^15.1.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-config-turbo": "^2.3.3",
+    "eslint-plugin-react": "^7.37.2",
+    "eslint-plugin-react-hooks": "^5.0.0",
+    "globals": "^15.13.0",
+    "typescript-eslint": "^8.17.0"
+  }
+}
