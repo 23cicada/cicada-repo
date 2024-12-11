@@ -1,0 +1,32 @@
+import pluginJs from "@eslint/js";
+import tseslint from "typescript-eslint";
+import pluginTurbo from 'eslint-config-turbo/flat'
+import eslintConfigPrettier from "eslint-config-prettier";
+import { includeIgnoreFile } from "@eslint/compat";
+import path from "node:path";
+
+// process.cwd() is used to get the current working directory of the node.js process.
+const gitignorePath = path.resolve(process.cwd(), ".gitignore")
+
+/** @type {import('eslint').Linter.Config[]} */
+export default [
+  includeIgnoreFile(gitignorePath),
+  pluginJs.configs.recommended,
+  eslintConfigPrettier,
+  ...tseslint.configs.strictTypeChecked,
+  ...tseslint.configs.stylisticTypeChecked,
+  ...pluginTurbo,
+  {
+    languageOptions: {
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+  },
+  // https://typescript-eslint.io/troubleshooting/typed-linting/#i-get-errors-telling-me--was-not-found-by-the-project-service-consider-either-including-it-in-the-tsconfigjson-or-including-it-in-allowdefaultproject
+  {
+    files: ['**/*.mjs'],
+    ...tseslint.configs.disableTypeChecked
+  },
+];
