@@ -1,0 +1,26 @@
+{
+  "name": "@repo/odin-nodejs",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "format-write": "format write",
+    "format-check": "format check",
+    "lint": "eslint . --max-warnings 0",
+    "dev": "nodemon src/server.ts --exec \"node -r ts-node/register --inspect\""
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:^",
+    "@repo/prettier-config": "workspace:^",
+    "@repo/typescript-config": "workspace:^",
+    "eslint": "^9.16.0",
+    "prettier": "3.3.3",
+    "typescript": "5.5.4",
+    "ts-node": "^10.9.2",
+    "@types/node": "^22.7.8",
+    "nodemon": "^3.1.7"
+  },
+  "dependencies": {
+    "@types/formidable": "^3.4.5",
+    "formidable": "^3.5.2"
+  }
+}
