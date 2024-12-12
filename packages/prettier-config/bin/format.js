@@ -3,8 +3,7 @@ const child_process = require('child_process')
 const process = require('process')
 
 const type = process.argv.slice(2)[0]
-// https://github.com/prettier/prettier/issues/13032#issuecomment-1866758574
-let command = 'prettier --ignore-unknown --cache-location=.prettiercache '
+let command = 'prettier --ignore-unknown '
 switch (type) {
     case 'write': command += '--write **/*'; break;
     case 'check': command += '--check **/*'; break;
