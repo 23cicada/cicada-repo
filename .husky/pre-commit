@@ -1,3 +1,1 @@
-yarn lint-staged --relative
-
-exit 1
+pnpm lint-staged --relative
