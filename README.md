@@ -1,25 +1,77 @@
-## Yarn
 
-[Installation](https://yarnpkg.com/getting-started/install)
+## Create a new workspace
+`turbo gen workspace --name @repo/xxx --type package|app`
 
-[Plug'n'Play](https://yarnpkg.com/features/pnp)
+```shell
+pnpm add -D eslint prettier typescript 
+```
+```shell
+pnpm add -D --workspace @repo/eslint-config @repo/prettier-config @repo/typescript-config
+```
 
-[Zero-installs](https://yarnpkg.com/features/caching#zero-installs)
+```json
+  {
+  "scripts": {
+    "format-write": "format write",
+    "format-check": "format check",
+    "lint": "eslint . --max-warnings 0"
+  }
+}
+```
 
-[Corepack](https://yarnpkg.com/corepack)
+.lintstagedrc.mjs 
+```js
+export default {
+  '**/*': [
+    'pnpm eslint --fix --no-warn-ignored --max-warnings 0',
+    'pnpm format staged',
+  ],
+}
+```
 
+.prettierrc.mjs
+```js
+import prettierConfig from "@repo/prettier-config";
+
+/**
+ * @type {import("prettier").Config}
+ */
+const config = prettierConfig;
+
+export default config
+```
+
+.eslint.config.mjs 
+```js
+import eslintConfigReact from '@repo/eslint-config/eslint-config-react'
+
+/** @type {import('eslint').Linter.Config[]} */
+const config = eslintConfigReact
+export default config
+```
+
+.gitignore
+
+tsconfig.json
+```json
+{
+  "extends": "@repo/typescript-config/base.json",
+  "include": ["src"],
+  "exclude": ["node_modules"]
+}
+```
 
 ## Install `husky` `lint-staged` in the root of the repo.
 `Husky`
 ```shell
-yarn add --dev husky
+pnpm add -D husky
 ```
 ```shell
 npx husky init
 ```
 `lint-staged`
 ```shell
-yarn add --dev lint-staged
+pnpm add -D lint-staged
 ```
 Create a `.lintstagedrc.mjs` in each package.
 
@@ -47,5 +99,13 @@ filenames [
 ]
 ```
 
-## Create a new workspace
-`turbo gen workspace --name @repo/xxx --type package|app`
+
+### Yarn
+
+[Installation](https://yarnpkg.com/getting-started/install)
+
+[Plug'n'Play](https://yarnpkg.com/features/pnp)
+
+[Zero-installs](https://yarnpkg.com/features/caching#zero-installs)
+
+[Corepack](https://yarnpkg.com/corepack)
