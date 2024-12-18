@@ -9,21 +9,16 @@
   },
   "scripts": {
     "generate:component": "turbo gen react-component",
-    "check-types": "tsc --noEmit",
-    "format-write": "format write",
-    "format-check": "format check",
     "lint": "eslint . --max-warnings 0"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
-    "@repo/prettier-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@turbo/gen": "^1.12.4",
     "@types/node": "^20.11.24",
     "@types/react": "18.3.0",
     "@types/react-dom": "18.3.1",
     "eslint": "^9.16.0",
-    "prettier": "3.3.3",
     "typescript": "5.5.4"
   },
   "dependencies": {

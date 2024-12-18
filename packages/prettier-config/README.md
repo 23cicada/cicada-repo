@@ -1,9 +1,13 @@
-# prettier-config
+# Discarded !!!
+
+## prettier-config
+
 ```shell
 yarn add --dev --exact prettier
 ```
 
 package.json
+
 ```json
 {
   "devDependencies": {
@@ -11,9 +15,11 @@ package.json
   }
 }
 ```
+
 .prettierrc.mjs
+
 ```js
-import prettierConfig from "@repo/prettier-config";
+import prettierConfig from "@repo/prettier-config"
 
 /**
  * @type {import("prettier").Config}
@@ -21,9 +27,9 @@ import prettierConfig from "@repo/prettier-config";
 const config = {
   ...usernamePrettierConfig,
   semi: false,
-};
+}
 
-export default config;
+export default config
 ```
 
 Create command line tool
