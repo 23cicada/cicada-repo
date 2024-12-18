@@ -1,0 +1,15 @@
+{
+  "name": "@repo/nodejs-basic",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "argv": "node --experimental-strip-types --experimental-transform-types --disable-warning=ExperimentalWarning src/process.ts --arg1 --arg2 filename"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:^",
+    "@repo/typescript-config": "workspace:^",
+    "@types/node": "^22.10.2",
+    "eslint": "^9.17.0",
+    "typescript": "5.5.4"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "name": "@repo/typescript-blog",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {},
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:^",
+    "typescript": "5.5.4"
+  }
+}
