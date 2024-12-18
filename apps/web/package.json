@@ -6,9 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint . --max-warnings 0",
-    "format-write": "format write",
-    "format-check": "format check"
+    "lint": "eslint . --max-warnings 0"
   },
   "dependencies": {
     "@repo/ui": "workspace:*",
