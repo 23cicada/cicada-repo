@@ -5,13 +5,15 @@
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",
-    "format-check": "turbo prettier-check",
-    "format": "turbo prettier",
-    "prepare": "husky"
+    "prepare": "husky",
+    "prettier": "prettier --ignore-unknown --write **/*",
+    "prettier:staged": "prettier --ignore-unknown --write",
+    "prettier:check": "prettier --ignore-unknown --check **/*"
   },
   "devDependencies": {
     "husky": "^9.1.7",
     "lint-staged": "^15.2.10",
+    "prettier": "3.3.3",
     "turbo": "^2.3.0",
     "typescript": "5.5.4"
   },
