@@ -19,9 +19,6 @@ importers:
       turbo:
         specifier: ^2.3.0
         version: 2.3.3
-      typescript:
-        specifier: 5.5.4
-        version: 5.5.4
 
   apps/odin-nodejs:
     dependencies:
@@ -35,9 +32,6 @@ importers:
       "@repo/eslint-config":
         specifier: workspace:^
         version: link:../../packages/eslint-config
-      "@repo/prettier-config":
-        specifier: workspace:^
-        version: link:../../packages/prettier-config
       "@repo/typescript-config":
         specifier: workspace:^
         version: link:../../packages/typescript-config
@@ -50,9 +44,6 @@ importers:
       nodemon:
         specifier: ^3.1.7
         version: 3.1.7
-      prettier:
-        specifier: 3.3.3
-        version: 3.3.3
       ts-node:
         specifier: ^10.9.2
         version: 10.9.2(@types/node@22.10.2)(typescript@5.5.4)
@@ -78,9 +69,6 @@ importers:
       "@repo/eslint-config":
         specifier: workspace:*
         version: link:../../packages/eslint-config
-      "@repo/prettier-config":
-        specifier: workspace:*
-        version: link:../../packages/prettier-config
       "@repo/typescript-config":
         specifier: workspace:*
         version: link:../../packages/typescript-config
@@ -96,9 +84,6 @@ importers:
       eslint:
         specifier: ^9
         version: 9.16.0
-      prettier:
-        specifier: 3.3.3
-        version: 3.3.3
       typescript:
         specifier: 5.5.4
         version: 5.5.4
@@ -159,9 +144,6 @@ importers:
       "@repo/eslint-config":
         specifier: workspace:*
         version: link:../eslint-config
-      "@repo/prettier-config":
-        specifier: workspace:*
-        version: link:../prettier-config
       "@repo/typescript-config":
         specifier: workspace:*
         version: link:../typescript-config
@@ -180,9 +162,6 @@ importers:
       eslint:
         specifier: ^9.16.0
         version: 9.16.0
-      prettier:
-        specifier: 3.3.3
-        version: 3.3.3
       typescript:
         specifier: 5.5.4
         version: 5.5.4
