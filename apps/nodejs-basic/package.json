@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "argv": "node --experimental-strip-types --experimental-transform-types --disable-warning=ExperimentalWarning src/process.ts --arg1 --arg2 filename"
+    "dev": "node --experimental-strip-types --experimental-transform-types --disable-warning=ExperimentalWarning"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:^",
