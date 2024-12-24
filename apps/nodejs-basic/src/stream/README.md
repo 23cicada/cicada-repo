@@ -11,10 +11,30 @@
 
 ## pipe
 
-把从流中读取的数据写入另一个流
+把从流中读取的数据写入另一个流。
 
 ## backpressure
 
-在调用流的write()方法时，它始终会接收并缓冲传入的数据块。如果内部缓冲区未满，它会返回true。否则返回false。
+在调用流的write()方法时，它始终会接收并缓冲传入的数据块。如果内部缓冲区未满，它会返回true，否则返回false。
 
 write()方法返回false，表示向流中写入数据的速度超过了它的处理能力。此时应停止调用write()，直到流发出“drain”事件，表明缓冲区又有空间了。
+
+## flowing and paused
+
+- flowing mode
+
+  注册“data”事件读取流（流会向“data”事件推送数据，注册前不会推送）。
+
+  调用pause()暂时停止“data”事件。
+
+  调用可读流的resume()方法，再次启动“data”事件。
+
+  处于flowing mode的流会在到达流末尾时发出一个“end”事件。
+
+- paused mode
+
+  调用read()方法从流中读取数据，如果已经没有数据可读，会返回null。
+
+  可读流在paused mode下会发送“readable”事件，表示流中有可读数据。
+
+  必须在一个循环中反复调用read()，直到它返回null。只有这样才能完全耗尽流的缓冲区，从而在将来再次触发新的“readable”事件。
