@@ -17,6 +17,8 @@ process.setUncaughtExceptionCaptureCallback((e) => {
   console.log("Uncaught exception:", e)
 })
 
+process.cwd() // 返回当前工作目录
+
 // 当用户在终端按下 Ctrl+C 时，Node.js 会触发 "SIGINT" 信号（而不会立即退出程序）。
 process.on("SIGINT", () => {
   // 退出
