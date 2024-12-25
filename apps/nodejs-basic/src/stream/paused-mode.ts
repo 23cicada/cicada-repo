@@ -11,7 +11,6 @@ function sha256(
 
   input.on("readable", () => {
     let chunk
-    // eslint-disable-next-line no-cond-assign
     while ((chunk = input.read() as Buffer | null)) {
       hasher.update(chunk)
     }
