@@ -16,10 +16,10 @@ console.table({
 // │ (index)         │ Values                                                                                        │
 // ├─────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────┤
 // │ process.cwd()   │ 'C:\\Users\\xxxxxxx\\Desktop\\turbo-yarn\\cicada-repo\\apps\\nodejs-basic'                    │
-// │ __filename      │ 'C:\\Users\\xxxxxxx\\Desktop\\turbo-yarn\\cicada-repo\\apps\\nodejs-basic\\src\\fs\\index.ts' │
+// │ __filename      │ 'C:\\Users\\xxxxxxx\\Desktop\\turbo-yarn\\cicada-repo\\apps\\nodejs-basic\\src\\fs\\client.ts' │
 // │ __dirname       │ 'C:\\Users\\xxxxxxx\\Desktop\\turbo-yarn\\cicada-repo\\apps\\nodejs-basic\\src\\fs'           │
-// │ process.argv[1] │ 'C:\\Users\\xxxxxxx\\Desktop\\turbo-yarn\\cicada-repo\\apps\\nodejs-basic\\src\\fs\\index.ts' │
-// │ import.meta.url │ 'file:///C:/Users/xxxxxxx/Desktop/turbo-yarn/cicada-repo/apps/nodejs-basic/src/fs/index.ts'   │
+// │ process.argv[1] │ 'C:\\Users\\xxxxxxx\\Desktop\\turbo-yarn\\cicada-repo\\apps\\nodejs-basic\\src\\fs\\client.ts' │
+// │ import.meta.url │ 'file:///C:/Users/xxxxxxx/Desktop/turbo-yarn/cicada-repo/apps/nodejs-basic/src/fs/client.ts'   │
 // └─────────────────┴───────────────────────────────────────────────────────────────────────────────────────────────┘
 
 const p = fileURLToPath(import.meta.url)
