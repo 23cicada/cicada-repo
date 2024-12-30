@@ -33,7 +33,13 @@ export default [
     // https://typescript-eslint.io/rules/no-unused-vars/#how-to-use
     rules: {
       "no-unused-vars": "off",
-      "@typescript-eslint/no-unused-vars": "off"
+      "@typescript-eslint/no-unused-vars": "off",
+      "@typescript-eslint/restrict-template-expressions": [
+        "error",
+        {
+          "allowNumber": true
+        }
+      ]
     }
   }
 ];
