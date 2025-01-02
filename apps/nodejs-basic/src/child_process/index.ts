@@ -1,7 +1,7 @@
 import child_process from "node:child_process"
 import util from "node:util"
 
-child_process.execSync("ls -l src/*.ts", { encoding: "utf-8" })
+child_process.execSync("ls -l src/", { encoding: "utf-8" })
 child_process.execFileSync("ls", ["-l", "src/"], { encoding: "utf-8" })
 
 const execPromisify = util.promisify(child_process.exec)
