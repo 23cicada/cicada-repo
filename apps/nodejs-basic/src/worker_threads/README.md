@@ -46,6 +46,7 @@ channel.port2.on("message", handleMessagesFromWorker)
 postMessage()也允许转移定型数组而不是复制它们。
 
 在处理图片的场景中，主线程可以把图片的像素转移到工作线程，工作线程可以把处理之后的像素转移回主线程。这样就不必复制内存，只不过两个线程永远不可能同时访问一块内存。
+``
 
 ```js
 const pixels = new Uint32Array(1024 * 1024)
@@ -54,4 +55,8 @@ worker.postMessage(pixels, [pixels.buffer])
 
 ## `SharedArrayBuffer`
 
-在线程间共享定型数组
+在线程间共享定型数组。
+
+不应该这么做，因为JavaScript设计时并未考虑线程安全，而多线程编程真的很难不出问题。就连简单的++操作符都不是线程安全的，因为它需要读取值、递增它，然后再把结果写回去。如果两个线程同时都递增一个值，那么通常只会递增一次，如 shared-array-buffer.ts 代码所示。
+
+如果必须允许多线程同时访问共享数组的同一区域，为保证线程安全，可以使用Atomics对象定义的函数。Atomics是在SharedArrayBuffer需要对共享数组的元素定义原子操作时添加到JavaScript中的。例如，Atomics.add()函数读取共享数组中指定的元素，给它加上指定的值，然后把和写回数组。三个操作是原子性的，就像一个操作一样，从而确保在操作期间其他线程都不能读或写同一个值。如 shared-array-buffer-atomics.ts 代码所示。

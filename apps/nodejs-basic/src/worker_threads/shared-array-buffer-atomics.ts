@@ -11,18 +11,18 @@ if (threads.isMainThread) {
 
   // The 'online' event is emitted when the worker thread has started executing JavaScript code.
   worker.on("online", () => {
-    for (let i = 0; i < 100_000_000; i++) {
-      if (typeof sharedArray[0] === "number") sharedArray[0]++
+    for (let i = 0; i < 10_000_000; i++) {
+      Atomics.add(sharedArray, 0, 1)
     }
 
     worker.on("message", () => {
-      console.log(sharedArray[0]) // => 113187377
+      console.log(Atomics.load(sharedArray, 0)) // => 20000000
     })
   })
 } else {
   const sharedArray = threads.workerData as Int32Array
-  for (let i = 0; i < 100_000_000; i++) {
-    if (typeof sharedArray[0] === "number") sharedArray[0]++
+  for (let i = 0; i < 10_000_000; i++) {
+    Atomics.add(sharedArray, 0, 1)
   }
   threads.parentPort?.postMessage("done")
 }
