@@ -10,7 +10,7 @@ function server(rootDirectory = process.cwd(), port = 8000) {
   console.log("Listening on port", port)
 
   server.on("request", (request, response) => {
-    const endpoint = new URL(request.url ?? "/").pathname
+    const endpoint = request.url ?? "/"
 
     request.on("error", (err) => {
       console.error(err)
@@ -22,6 +22,7 @@ function server(rootDirectory = process.cwd(), port = 8000) {
       console.error(err)
     })
 
+    console.log("testsdf", request.url)
     switch (endpoint) {
       case "/test/mirror":
         {
@@ -68,6 +69,7 @@ function server(rootDirectory = process.cwd(), port = 8000) {
             type = "application/octet-stream"
             break
         }
+
         const stream = fs.createReadStream(filename)
         stream.once("readable", () => {
           response.setHeader("Content-Type", type)
@@ -75,8 +77,9 @@ function server(rootDirectory = process.cwd(), port = 8000) {
           stream.pipe(response)
         })
         stream.on("error", (err) => {
-          response.setHeader("Content-Type", "text/plain; charset=UTF-8")
-          response.write(404)
+          response.writeHead(404, {
+            "Content-Type": "text/plain; charset=UTF-8",
+          })
           response.end(err.message)
         })
       }

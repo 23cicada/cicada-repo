@@ -17,3 +17,31 @@ Node诞生于JavaScript有Promise类之前，因此异步Node API是基于回调
 ```shell
 node --experimental-strip-types --experimental-transform-types --disable-warning=ExperimentalWarning xxx.ts
 ```
+
+## Debugging Node.js
+
+[JeBrains WebStorm](https://nodejs.org/en/learn/getting-started/debugging#jetbrains-webstorm-and-other-jetbrains-ides)
+
+> `--inspect` will be used by default for Node.js 7+.
+
+## `url.parse()` & `URL` object
+
+```text
+┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                              href                                              │
+├──────────┬──┬─────────────────────┬────────────────────────┬───────────────────────────┬───────┤
+│ protocol │  │        auth         │          host          │           path            │ hash  │
+│          │  │                     ├─────────────────┬──────┼──────────┬────────────────┤       │
+│          │  │                     │    hostname     │ port │ pathname │     search     │       │
+│          │  │                     │                 │      │          ├─┬──────────────┤       │
+│          │  │                     │                 │      │          │ │    query     │       │
+"  https:   //    user   :   pass   @ sub.example.com : 8080   /p/a/t/h  ?  query=string   #hash "
+│          │  │          │          │    hostname     │ port │          │                │       │
+│          │  │          │          ├─────────────────┴──────┤          │                │       │
+│ protocol │  │ username │ password │          host          │          │                │       │
+├──────────┴──┼──────────┴──────────┼────────────────────────┤          │                │       │
+│   origin    │                     │         origin         │ pathname │     search     │ hash  │
+├─────────────┴─────────────────────┴────────────────────────┴──────────┴────────────────┴───────┤
+│                                              href                                              │
+└────────────────────────────────────────────────────────────────────────────────────────────────┘
+```
