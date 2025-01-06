@@ -53,7 +53,7 @@
 // => fs.appendFileSync()
 fs.writeFileSync("messages.log", "hello", { flag: "a" })
 
-// 打开一个写入流，如果文件错误则抛出错误
+// 打开一个写入流，如果文件存在则抛出错误
 fs.createWriteStream("message.log", { flags: "wx" })
 ```
 
