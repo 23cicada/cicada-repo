@@ -24,6 +24,18 @@ node --experimental-strip-types --experimental-transform-types --disable-warning
 
 > `--inspect` will be used by default for Node.js 7+.
 
+## Environment-variables
+```text
+# .env file
+PORT=3000
+
+process.env.PORT // "3000"
+
+node --env-file=.env app.js
+```
+
+> Node.js 20 introduced experimental support for .env files.
+
 ## `url.parse()` & `URL` object
 
 ```text

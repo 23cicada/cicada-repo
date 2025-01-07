@@ -3,23 +3,23 @@
 `turbo gen workspace --name @repo/xxx --type package|app`
 
 ```shell
-pnpm add -D eslint prettier typescript 
+pnpm add -D eslint typescript
 ```
 ```shell
-pnpm add -D --workspace @repo/eslint-config @repo/prettier-config @repo/typescript-config
+pnpm add -D --workspace @repo/eslint-config @repo/typescript-config
 ```
 
 ```json
   {
   "scripts": {
-    "format-write": "format write",
     "format-check": "format check",
+    "format-write": "format write",
     "lint": "eslint . --max-warnings 0"
   }
 }
 ```
 
-.lintstagedrc.mjs 
+.lintstagedrc.mjs
 ```js
 export default {
   '**/*': [
@@ -29,19 +29,7 @@ export default {
 }
 ```
 
-.prettierrc.mjs
-```js
-import prettierConfig from "@repo/prettier-config";
-
-/**
- * @type {import("prettier").Config}
- */
-const config = prettierConfig;
-
-export default config
-```
-
-.eslint.config.mjs 
+.eslint.config.mjs
 ```js
 import eslintConfigReact from '@repo/eslint-config/eslint-config-react'
 
