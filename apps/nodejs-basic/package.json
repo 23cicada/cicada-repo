@@ -4,7 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "node --experimental-strip-types --experimental-transform-types --disable-warning=ExperimentalWarning"
+    "dev": "node --experimental-strip-types --experimental-transform-types --disable-warning=ExperimentalWarning",
+    "lint": "eslint"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:^",
