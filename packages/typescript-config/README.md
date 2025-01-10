@@ -16,7 +16,7 @@
     "noUncheckedIndexedAccess": true,
     "noImplicitOverride": true,
 
-    /* If transpiling with TypeScript: */
+    /* If transpiling with tsc: */
     "module": "NodeNext",
     "outDir": "dist",
     "sourceMap": true,
@@ -28,7 +28,7 @@
     "composite": true,
     "declarationMap": true,
 
-    /* If NOT transpiling with TypeScript: */
+    /* If NOT transpiling with tsc: */
     "module": "preserve",
     "noEmit": true,
 
@@ -134,4 +134,46 @@ TS 开启 esModuleInterop 后：
 
 > This includes generating a type for the import based on the static JSON shape
 
+## `"moduleDetection": "force"`
+强制将所有文件视为模块
 
+## `isolatedModules: true`
+设置如果当前 TypeScript 脚本作为单个模块编译，是否会因为缺少其他脚本的类型信息而报错，主要便于非官方的编译工具（比如 Babel）正确编译单个脚本。
+
+[Isolated Modules](https://www.typescriptlang.org/tsconfig/#exports-of-non-value-identifiers)
+
+[理解Typescript配置项: isolateModules](https://juejin.cn/post/7053298681037979678)
+
+## `"verbatimModuleSyntax": true`
+任何没有 type 修饰符的 import 或 export 都被保留。
+
+任何使用 type 修饰符的内容都被完全删除。
+
+## `"noUncheckedIndexedAccess": true`
+TypeScript 有一种方法可以描述具有未知键但在对象上具有已知值的对象，通过索引签名。
+
+开启 noUncheckedIndexedAccess 将会在类型中为任何未声明的字段添加 undefined。
+
+## `"noImplicitOverride": true`
+用于强制在覆盖父类方法或属性时显式添加 override 修饰符。
+
+## `"module": "nodenext"/"preserve"`
+指定编译后的模块格式
+
+nodenext: 支持 Node.js 的 ESM 和 CommonJS 模块系统，自动适配文件扩展名和 package.json 的 type 字段。
+
+preserve: TypeScript 编译器在编译过程中会保留源文件中的模块语法。不会将模块语法转换为 CommonJS 或其他模块格式，而是让工具链（如 Webpack、Rollup、ESBuild 等）或运行时环境处理模块的解析和执行。
+
+## `"declaration": true`
+为项目中的每个 TypeScript 或 JavaScript 文件生成 .d.ts 类型声明文件，用于描述模块的外部 API。
+
+## `"declarationMap": true`
+设置生成.d.ts类型声明文件的同时，还会生成对应的 Source Map 文件。
+
+## `"noEmit": true`
+控制编译器是否生成输出文件（如 .js 或 .d.ts 文件）。
+
+当设置为 true 时，TypeScript 不会生成任何编译输出，但仍然会进行类型检查和代码解析。
+
+## `"lib": ["es2022", "dom", "dom.iterable"]`
+需要加载的 TypeScript 内置类型描述文件
