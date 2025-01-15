@@ -1,3 +1,5 @@
+## [The TSConfig Cheat Sheet](https://www.totaltypescript.com/tsconfig-cheat-sheet)
+
 ```json
 {
   "compilerOptions": {
@@ -140,6 +142,8 @@ TS 开启 esModuleInterop 后：
 ## `isolatedModules: true`
 设置如果当前 TypeScript 脚本作为单个模块编译，是否会因为缺少其他脚本的类型信息而报错，主要便于非官方的编译工具（比如 Babel）正确编译单个脚本。
 
+设置 isolatedModules 会告诉 TypeScript，如果编写的某些代码无法被单文件转译过程正确解释，它就会发出警告。
+
 [Isolated Modules](https://www.typescriptlang.org/tsconfig/#exports-of-non-value-identifiers)
 
 [理解Typescript配置项: isolateModules](https://juejin.cn/post/7053298681037979678)
@@ -148,6 +152,8 @@ TS 开启 esModuleInterop 后：
 任何没有 type 修饰符的 import 或 export 都被保留。
 
 任何使用 type 修饰符的内容都被完全删除。
+
+[Verbatim Module Syntax](https://www.typescriptlang.org/tsconfig/#verbatimModuleSyntax)
 
 ## `"noUncheckedIndexedAccess": true`
 TypeScript 有一种方法可以描述具有未知键但在对象上具有已知值的对象，通过索引签名。
@@ -162,7 +168,11 @@ TypeScript 有一种方法可以描述具有未知键但在对象上具有已知
 
 nodenext: 支持 Node.js 的 ESM 和 CommonJS 模块系统，自动适配文件扩展名和 package.json 的 type 字段。
 
+=> `moduleResolution: NodeNext`
+
 preserve: TypeScript 编译器在编译过程中会保留源文件中的模块语法。不会将模块语法转换为 CommonJS 或其他模块格式，而是让工具链（如 Webpack、Rollup、ESBuild 等）或运行时环境处理模块的解析和执行。
+
+=> `moduleResolution: Bundler`
 
 ## `"declaration": true`
 为项目中的每个 TypeScript 或 JavaScript 文件生成 .d.ts 类型声明文件，用于描述模块的外部 API。
@@ -177,3 +187,6 @@ preserve: TypeScript 编译器在编译过程中会保留源文件中的模块�
 
 ## `"lib": ["es2022", "dom", "dom.iterable"]`
 需要加载的 TypeScript 内置类型描述文件
+
+## `"composite": true`
+> Tells TypeScript to emit .tsbuildinfo files. This tells TypeScript that your project is part of a monorepo, and also helps it to cache builds to run faster.
