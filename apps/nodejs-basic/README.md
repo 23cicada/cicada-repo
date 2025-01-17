@@ -18,6 +18,8 @@ Node诞生于JavaScript有Promise类之前，因此异步Node API是基于回调
 node --experimental-strip-types --experimental-transform-types --disable-warning=ExperimentalWarning xxx.ts
 ```
 
+[Document](https://nodejs.org/docs/latest/api/typescript.html#type-stripping)
+
 ## Debugging Node.js
 
 [JeBrains WebStorm](https://nodejs.org/en/learn/getting-started/debugging#jetbrains-webstorm-and-other-jetbrains-ides)
@@ -25,6 +27,7 @@ node --experimental-strip-types --experimental-transform-types --disable-warning
 > `--inspect` will be used by default for Node.js 7+.
 
 ## Environment-variables
+
 ```text
 # .env file
 PORT=3000

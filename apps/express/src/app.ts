@@ -1,7 +1,7 @@
 import express from "express"
-import authorRouter from "./routes/authorRouter"
-import bookRouter from "./routes/bookRouter"
-import indexRouter from "./routes/indexRouter"
+import authorRouter from "./routes/authorRouter.ts"
+import bookRouter from "./routes/bookRouter.ts"
+import indexRouter from "./routes/indexRouter.ts"
 
 const app = express()
 
