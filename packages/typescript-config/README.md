@@ -191,10 +191,14 @@ preserve: TypeScript 编译器在编译过程中会保留源文件中的模块�
 ## `"composite": true`
 > Tells TypeScript to emit .tsbuildinfo files. This tells TypeScript that your project is part of a monorepo, and also helps it to cache builds to run faster.
 
-
 ## Other
 
 ## `"allowImportingTsExtensions": true`
 Allows TypeScript files to import each other with a TypeScript-specific extension like .ts, .mts, or .tsx.
 
 This flag is only allowed when --noEmit or --emitDeclarationOnly is enabled.
+
+## `"rewriteRelativeImportExtensions": true`
+
+[When an import path is relative (starts with ./ or ../), ends in a TypeScript extension (.ts, .tsx, .mts, .cts), and is a non-declaration file, the compiler will rewrite the path to the corresponding JavaScript extension (.js, .jsx, .mjs, .cjs).](https://devblogs.microsoft.com/typescript/announcing-typescript-5-7/#path-rewriting-for-relative-paths)
+
