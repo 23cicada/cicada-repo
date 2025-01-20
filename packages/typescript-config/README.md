@@ -202,3 +202,5 @@ This flag is only allowed when --noEmit or --emitDeclarationOnly is enabled.
 
 [When an import path is relative (starts with ./ or ../), ends in a TypeScript extension (.ts, .tsx, .mts, .cts), and is a non-declaration file, the compiler will rewrite the path to the corresponding JavaScript extension (.js, .jsx, .mjs, .cjs).](https://devblogs.microsoft.com/typescript/announcing-typescript-5-7/#path-rewriting-for-relative-paths)
 
+
+# [Live types in a TypeScript monorepo](https://colinhacks.com/essays/live-types-typescript-monorepo)
