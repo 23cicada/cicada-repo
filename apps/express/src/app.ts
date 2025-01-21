@@ -4,6 +4,8 @@ import authorRouter from "./routes/authorRouter.ts"
 import bookRouter from "./routes/bookRouter.ts"
 import indexRouter from "./routes/indexRouter.ts"
 import type { CustomError } from "./interface.js"
+import path from "node:path"
+import errorHandler from "./controllers/errorController.ts"
 
 const app = express()
 
@@ -11,17 +13,10 @@ app.use("/authors", authorRouter)
 app.use("/books", bookRouter)
 app.use("/", indexRouter)
 
-const errorHandler: ErrorRequestHandler = (
-  err: CustomError,
-  req,
-  res,
-  next,
-) => {
-  console.error(err)
-  res.status(err.statusCode ?? 500).send(err.message)
-}
-
 app.use(errorHandler)
+
+app.set("views", path.join(import.meta.dirname, "views"))
+app.set("view engine", "ejs")
 
 const PORT = process.env.PORT ?? 3001
 
