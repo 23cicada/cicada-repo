@@ -22,6 +22,4 @@ bookRouter
     res.send(`Post reserve: ${bookId}`)
   })
 
-bookRouter.post("/:bookId/reserve")
-
 export default bookRouter
