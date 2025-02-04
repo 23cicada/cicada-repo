@@ -9,14 +9,8 @@ pnpm add -D eslint typescript
 pnpm add -D --workspace @repo/eslint-config @repo/typescript-config
 ```
 
-```json
-  {
-  "scripts": {
-    "format-check": "format check",
-    "format-write": "format write",
-    "lint": "eslint . --max-warnings 0"
-  }
-}
+```shell
+touch .lintstagedrc.mjs eslint.config.mjs .gitignore tsconfig.json
 ```
 
 .lintstagedrc.mjs
@@ -29,12 +23,12 @@ export default {
 }
 ```
 
-.eslint.config.mjs
+eslint.config.mjs
 ```js
-import eslintConfigReact from '@repo/eslint-config/eslint-config-react'
+import eslintConfigBase from '@repo/eslint-config/eslint-config-base'
 
 /** @type {import('eslint').Linter.Config[]} */
-const config = eslintConfigReact
+const config = eslintConfigBase
 export default config
 ```
 
@@ -43,9 +37,8 @@ export default config
 tsconfig.json
 ```json
 {
-  "extends": "@repo/typescript-config/base.json",
-  "include": ["src"],
-  "exclude": ["node_modules"]
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "@repo/typescript-config/type-stripping.json"
 }
 ```
 
