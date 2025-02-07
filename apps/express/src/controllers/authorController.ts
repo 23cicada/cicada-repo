@@ -1,12 +1,12 @@
 import asyncHandler from "express-async-handler"
 import * as db from "../db.ts"
-import CustomNotFoundError from "../errors/CustomNotFoundError.ts"
+import ResourceNotFoundError from "../errors/ResourceNotFoundError.ts"
 
 const getAuthorById = asyncHandler(async (req, res) => {
   const { authorId } = req.params
   const author = await db.getAuthorById(Number(authorId))
   if (!author) {
-    throw new CustomNotFoundError("Author not found")
+    throw new ResourceNotFoundError("Author not found")
   }
   res.send(`Author Name: ${author.name}`)
 })
