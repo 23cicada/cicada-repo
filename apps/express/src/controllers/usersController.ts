@@ -20,7 +20,19 @@ const validateUser = [
     .withMessage(`Last Name ${alphaErr}`)
     .isLength({ min: 1, max: 10 })
     .withMessage(`Last name ${lengthErr}`),
-  // body('email')
+  body("email")
+    .trim()
+    .isEmail()
+    .withMessage("Email must be formatted properly."),
+  body("age")
+    .optional()
+    .isInt({ min: 18, max: 120 })
+    .withMessage("Age must be a number between 18 and 120."),
+  body("bio")
+    .trim()
+    .optional()
+    .isLength({ max: 200 })
+    .withMessage("Bio must be at most 200 characters."),
 ]
 
 const usersListGet = (req: Request, res: Response) => {
@@ -47,10 +59,13 @@ const usersCreatePost = [
       })
       return
     }
-    const { firstName, lastName } = req.body as UserInfo
+    const { firstName, lastName, email, age, bio } = req.body as UserInfo
     usersStorage.addUser({
       firstName,
       lastName,
+      email,
+      age,
+      bio,
     })
     res.redirect("/users")
   },
@@ -82,10 +97,13 @@ const usersUpdatePost = [
       })
       return
     }
-    const { firstName, lastName } = req.body as UserInfo
+    const { firstName, lastName, email, age, bio } = req.body as UserInfo
     usersStorage.updateUser(userId, {
       firstName,
       lastName,
+      email,
+      age,
+      bio,
     })
     res.redirect("/users")
   },

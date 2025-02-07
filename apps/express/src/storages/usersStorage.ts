@@ -8,12 +8,15 @@ class UsersStorage {
     this.id = 0
   }
 
-  addUser({ firstName, lastName }: UserInfo) {
+  addUser({ firstName, lastName, email, age, bio }: UserInfo) {
     const id = this.id
     this.storage[id] = {
       id,
       firstName,
       lastName,
+      email,
+      age,
+      bio,
     }
     this.id++
   }
@@ -26,11 +29,14 @@ class UsersStorage {
     return this.storage[id]
   }
 
-  updateUser(id: string, { firstName, lastName }: UserInfo) {
+  updateUser(id: string, { firstName, lastName, email, age, bio }: UserInfo) {
     this.storage[id] = {
       id: Number(id),
       firstName,
       lastName,
+      email,
+      age,
+      bio,
     }
   }
 

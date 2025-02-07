@@ -5,9 +5,9 @@ interface CustomError extends Error {
 interface UserInfo {
   firstName: string
   lastName: string
-  // email: string
-  // age?: number
-  // bio?: string
+  email: string
+  age?: number
+  bio?: string
 }
 
 interface UserStorage extends UserInfo {
