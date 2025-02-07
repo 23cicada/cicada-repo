@@ -7,7 +7,7 @@
   <%- include('navbar', { links: links }) %>
   <ul>
     <% users.map((user) => { %>
-      <%- include('users/user', { user: user })%>
+      <%- include('user', { user: user })%>
     <% }) %>
   </ul>
   <%- include('footer') %>

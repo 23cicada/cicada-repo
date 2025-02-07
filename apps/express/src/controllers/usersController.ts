@@ -1,0 +1,106 @@
+import usersStorage from "../storages/usersStorage.ts"
+import type { UserInfo } from "../interface.ts"
+import { body, validationResult } from "express-validator"
+import type { Request, Response, NextFunction } from "express"
+import NotFoundError from "../errors/NotFoundError.ts"
+
+const alphaErr = "must only contain letters."
+const lengthErr = "must be between 1 and 10 characters."
+
+const validateUser = [
+  body("firstName")
+    .trim()
+    .isAlpha()
+    .withMessage(`First Name ${alphaErr}`)
+    .isLength({ min: 1, max: 10 })
+    .withMessage(`First name ${lengthErr}`),
+  body("lastName")
+    .trim()
+    .isAlpha()
+    .withMessage(`Last Name ${alphaErr}`)
+    .isLength({ min: 1, max: 10 })
+    .withMessage(`Last name ${lengthErr}`),
+  // body('email')
+]
+
+const usersListGet = (req: Request, res: Response) => {
+  res.render("users/index", {
+    title: "User list",
+    users: usersStorage.getUsers(),
+  })
+}
+
+const usersCreateGet = (req: Request, res: Response) => {
+  res.render("users/createUser", {
+    title: "Create user",
+  })
+}
+
+const usersCreatePost = [
+  ...validateUser,
+  (req: Request, res: Response) => {
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+      res.status(400).render("users/createUser", {
+        title: "Create user",
+        errors: errors.array(),
+      })
+      return
+    }
+    const { firstName, lastName } = req.body as UserInfo
+    usersStorage.addUser({
+      firstName,
+      lastName,
+    })
+    res.redirect("/users")
+  },
+]
+
+const usersUpdateGet = (req: Request, res: Response) => {
+  const userId = req.params.id!
+  const user = usersStorage.getUser(userId)
+  if (!user) {
+    throw new NotFoundError()
+  }
+  res.render("users/updateUser", {
+    title: "Update user",
+    user: user,
+  })
+}
+
+const usersUpdatePost = [
+  ...validateUser,
+  (req: Request, res: Response) => {
+    const userId = req.params.id!
+    const user = usersStorage.getUser(userId)
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+      res.status(400).render("users/updateUser", {
+        title: "Update user",
+        user: user,
+        errors: errors.array(),
+      })
+      return
+    }
+    const { firstName, lastName } = req.body as UserInfo
+    usersStorage.updateUser(userId, {
+      firstName,
+      lastName,
+    })
+    res.redirect("/users")
+  },
+]
+
+const usersDeletePost = (req: Request, res: Response) => {
+  usersStorage.deleteUser(req.params.id!)
+  res.redirect("/users")
+}
+
+export {
+  usersListGet,
+  usersCreateGet,
+  usersCreatePost,
+  usersUpdateGet,
+  usersUpdatePost,
+  usersDeletePost,
+}
