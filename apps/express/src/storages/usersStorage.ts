@@ -1,4 +1,4 @@
-import type { UserStorage, UserInfo } from "../interface.ts"
+import type { UserStorage, UserInfo, UserSearchParams } from "../interface.ts"
 
 class UsersStorage {
   public storage: Record<string, UserStorage>
@@ -43,6 +43,17 @@ class UsersStorage {
   deleteUser(id: string) {
     // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
     delete this.storage[id]
+  }
+
+  searchUser({ name, email }: UserSearchParams) {
+    return Object.values(this.storage).filter((user) => {
+      return (
+        (!name ||
+          user.firstName.toLowerCase().includes(name.toLowerCase()) ||
+          user.lastName.toLowerCase().includes(name.toLowerCase())) &&
+        (!email || user.email.toLowerCase() === email.toLowerCase())
+      )
+    })
   }
 }
 

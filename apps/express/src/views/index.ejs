@@ -1,15 +1,17 @@
+<!doctype html>
 <html lang="en">
 <head>
-  <title>Homepage</title>
-  <link rel="stylesheet" href="/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Index</title>
 </head>
 <body>
-  <%- include('navbar', { links: links }) %>
   <ul>
-    <% users.map((user) => { %>
-      <%- include('user', { user: user })%>
-    <% }) %>
+    <li><a href="/books">Books</a></li>
+    <li><a href="/users">Users</a></li>
+    <li><a href="/msg-board">Mini Message Board</a></li>
   </ul>
-  <%- include('footer') %>
 </body>
 </html>

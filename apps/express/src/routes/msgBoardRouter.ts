@@ -16,18 +16,18 @@ const messages = [
 ]
 
 indexRouter.get("/", (req, res) => {
-  res.render("index", { messages })
+  res.render("msg-board", { messages })
 })
 
 indexRouter.get("/detail/:index", (req, res) => {
   const { index } = req.params
-  res.render("detail", { message: messages[Number(index)] })
+  res.render("msg-board/detail", { message: messages[Number(index)] })
 })
 
 indexRouter
   .route("/new")
   .get((req, res) => {
-    res.render("form")
+    res.render("msg-board/form")
   })
   .post((req, res) => {
     const { name, message } = req.body as { name?: string; message?: string }
@@ -39,7 +39,7 @@ indexRouter
       text: message,
       added: new Date(),
     })
-    res.redirect("/")
+    res.redirect("/msg-board")
   })
 
 export default indexRouter

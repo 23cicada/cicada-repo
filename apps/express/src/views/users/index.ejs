@@ -7,6 +7,18 @@
 <body>
 <h1><%= title %></h1>
 <ul>
+  <form method="get" action="/users/search">
+    <div>
+      <label for="name">Name: </label>
+      <input type="text" name="name" id="name">
+    </div>
+    <div>
+      <label for="email">Email: </label>
+      <input type="text" name="email" id="email">
+    </div>
+    <button type="submit">Search</button>
+    <%- include('partials/errors.ejs') %>
+  </form>
   <% if (locals.users) {%>
     <% users.forEach(user => { %>
       <li>
