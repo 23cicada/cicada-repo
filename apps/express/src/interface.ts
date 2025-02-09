@@ -10,8 +10,13 @@ interface UserInfo {
   bio?: string
 }
 
+interface UserSearchParams {
+  name?: string
+  email?: string
+}
+
 interface UserStorage extends UserInfo {
   id: number
 }
 
-export type { CustomError, UserStorage, UserInfo }
+export type { CustomError, UserStorage, UserInfo, UserSearchParams }

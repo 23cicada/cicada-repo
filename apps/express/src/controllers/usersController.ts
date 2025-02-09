@@ -1,7 +1,7 @@
 import usersStorage from "../storages/usersStorage.ts"
-import type { UserInfo } from "../interface.ts"
-import { body, validationResult } from "express-validator"
-import type { Request, Response, NextFunction } from "express"
+import type { UserInfo, UserSearchParams } from "../interface.ts"
+import { body, validationResult, query } from "express-validator"
+import type { Request, Response } from "express"
 import NotFoundError from "../errors/NotFoundError.ts"
 
 const alphaErr = "must only contain letters."
@@ -25,7 +25,7 @@ const validateUser = [
     .isEmail()
     .withMessage("Email must be formatted properly."),
   body("age")
-    .optional()
+    .optional({ values: "falsy" })
     .isInt({ min: 18, max: 120 })
     .withMessage("Age must be a number between 18 and 120."),
   body("bio")
@@ -114,6 +114,43 @@ const usersDeletePost = (req: Request, res: Response) => {
   res.redirect("/users")
 }
 
+const usersSearchGet = [
+  query("name")
+    .trim()
+    .optional()
+    .isString()
+    .withMessage("Name must be a string."),
+  query("email")
+    .trim()
+    .optional({ values: "falsy" })
+    .isEmail()
+    .withMessage("Invalid email format."),
+  body().custom((_, { req }) => {
+    const { email, name } = req.query as UserSearchParams
+    if (!email && !name) {
+      throw new Error("At least one of name or email must be provided.")
+    }
+    return true
+  }),
+  (req: Request, res: Response) => {
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+      res.render("users/index", {
+        title: "User list",
+        users: usersStorage.getUsers(),
+        errors: errors.array(),
+      })
+      return
+    }
+    const { email, name } = req.query as UserSearchParams
+    const users = usersStorage.searchUser({ email, name })
+    res.render("users/search.ejs", {
+      title: "Search result",
+      users,
+    })
+  },
+]
+
 export {
   usersListGet,
   usersCreateGet,
@@ -121,4 +158,5 @@ export {
   usersUpdateGet,
   usersUpdatePost,
   usersDeletePost,
+  usersSearchGet,
 }

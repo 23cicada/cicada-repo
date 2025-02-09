@@ -10,11 +10,11 @@
 <body>
   <% messages.map((msg, index) => { %>
     <ul>
-      <li><%= msg.user %> <a href="/detail/<%= index%>">Detail</a></li>
+      <li><%= msg.user %> <a href="/msg-board/detail/<%= index%>">Detail</a></li>
       <li><%= msg.text %></li>
       <li><%= msg.added %></li>
     </ul>
   <% }) %>
-  <a href="/new">New</a>
+  <a href="/msg-board/new">New</a>
 </body>
 </html>
