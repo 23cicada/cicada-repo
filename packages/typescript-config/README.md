@@ -114,6 +114,12 @@ TS 开启 esModuleInterop 后：
  console.log(react);
 ```
 
+```js
+var __importDefault = function (mod) {
+  return mod && mod.__esModule ? mod : { default: mod };
+};
+```
+
 > esm 导入 cjs 兼容问题的产生是因为 esm 有 default 这个概念，而 cjs 没有。任何导出的变量在 cjs 看来都是 module.exports 这个对象上的属性，esm 的 default 导出也只是 cjs 上的 module.exports.default 属性而已。
 >
 > [esModuleInterop 到底做了什么？](https://zhuanlan.zhihu.com/p/148081795)
