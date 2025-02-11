@@ -1,10 +1,10 @@
-1. Create database
+## CREATE DATABASE
 
 ```sql
 CREATE DATABASE [IF NOT EXISTS] database_name
 ```
 
-2. Create table
+## CREATE TABLE
 
 ```sql
 CREATE TABLE [IF NOT EXISTS] table_name (
@@ -13,15 +13,13 @@ CREATE TABLE [IF NOT EXISTS] table_name (
 )
 ```
 
-3. Destroy
+## DELETE
 
 ```sql
 DELETE FROM table_name [WHERE condition]
-
-DELETE FROM users WHERE id > 12 AND name = 'foo'
 ```
 
-4. Create
+## INSERT INTO
 
 ```sql
 INSERT INTO table_name [(column1, column2, ...)]
@@ -30,7 +28,7 @@ VALUES (value1, value2, ...), (value1, value2, ...), ...
 INSERT INTO users (name, email) VALUES ('foobar','foo@bar.com');
 ```
 
-5. Update
+## UPDATE
 
 ```sql
 UPDATE table_name
@@ -42,7 +40,7 @@ SET name='barfoo', email='bar@foo.com'
 WHERE email='foo@bar.com';
 ```
 
-6. Read
+## SELECT
 
 ```sql
 SELECT [DISTINCT] column1, column2, ...
@@ -54,11 +52,9 @@ FROM table_name
 [LIMIT row_count OFFSET offset_value];
 ```
 
-- DISTINCT
-- ORDER BY
-- LIMIT
-- GROUP BY: Use aggregate functions with the GROUP BY clause.
-- WHERE condition
+GROUP BY: Use aggregate functions with the GROUP BY clause.
+
+WHERE condition
 
 ```sql
 column_name operator value
