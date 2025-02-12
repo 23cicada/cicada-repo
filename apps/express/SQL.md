@@ -1,74 +1,60 @@
-## CREATE DATABASE
-
-```sql
-CREATE DATABASE [IF NOT EXISTS] database_name
-```
-
-## CREATE TABLE
-
-```sql
-CREATE TABLE [IF NOT EXISTS] table_name (
-    column_name1 data_type,
-    column_name2 data_type,
-)
-```
-
-## DELETE
-
-```sql
-DELETE FROM table_name [WHERE condition]
-```
-
-## INSERT INTO
-
-```sql
-INSERT INTO table_name [(column1, column2, ...)]
-VALUES (value1, value2, ...), (value1, value2, ...), ...
-
-INSERT INTO users (name, email) VALUES ('foobar','foo@bar.com');
-```
-
-## UPDATE
-
-```sql
-UPDATE table_name
-SET column1 = value1, column2 = value2, ...
-[WHERE condition]
-
-UPDATE users
-SET name='barfoo', email='bar@foo.com'
-WHERE email='foo@bar.com';
-```
-
 ## SELECT
 
 ```sql
 SELECT [DISTINCT] column1, column2, ...
 FROM table_name
 [WHERE condition]
-[GROUP BY column_name(s)]
+[GROUP BY column_name]
 [HAVING condition]
 [ORDER BY column_name [ASC | DESC]]
 [LIMIT row_count OFFSET offset_value];
 ```
 
-GROUP BY: Use aggregate functions with the GROUP BY clause.
-
-WHERE condition
+**WHERE condition**
 
 ```sql
 column_name operator value
-column_name BETWEEN value1 AND value2
-column_name IN (value1, value2, ...)
-column_name LIKE pattern
-column_name IS NULL | IS NOT NULL
+column_name [NOT] BETWEEN value1 AND value2
+column_name [NOT] IN (value1, value2, value3, ...)
+column_name LIKE 'pattern%'     -- 以 pattern 开头
+column_name LIKE '%pattern'     -- 以 pattern 结尾
+column_name LIKE '%pattern%'    -- 包含 pattern
+column_name LIKE '_pattern_'    -- "_" 代表单个字符
+column_name IS [NOT] NULL
 column_name operator (SELECT statement)
-EXISTS (SELECT statement)
 condition1 [AND | OR] condition2
 NOT condition
 ```
 
-Case
+Operator: `!=`, `>`, `>=`, `<`, `<=`, `LIKE`, ...
+
+**JOIN**
+
+```sql
+[INNER] JOIN another_table  ON mytable.id = another_table.matching_id
+
+[LEFT | RIGHT | FULL] JOIN another_table ON mytable.id = another_table.matching_id
+```
+
+**Aggregate**
+
+COUNT(column): Count the number of rows in the group with non-NULL values in the specified column.
+
+COUNT(\*): Number of rows.
+
+SUM(column) / AVG(column) / MIN(column) / MAX(column)
+
+> GROUP BY:
+> The GROUP BY clause works by grouping rows that have the same value in the column specified.
+>
+> Use aggregate functions with the GROUP BY clause.
+
+> HAVING:
+> HAVING 子句专门与 GROUP BY 子句一起使用，使我们能够对分组后的结果集进行筛选。
+>
+> Which is essentially the WHERE for aggregates.
+
+**Case**
 
 ```sql
 CASE
@@ -98,7 +84,7 @@ SELECT *,
 FROM friends_of_pickles;
 ```
 
-SUBSTR
+**SUBSTR**
 
 ```sql
 SUBSTRING(string, start_position, length)
@@ -108,7 +94,7 @@ FROM robots
 WHERE substr(location, -2) LIKE 'NY'
 ```
 
-COALESCE
+**COALESCE**
 
 返回参数列表中第一个非 NULL 的值。
 
@@ -118,64 +104,55 @@ COALESCE(value1, value2, ..., valueN)
 SELECT name, COALESCE(tank, gun, sword) AS weapon FROM fighters;
 ```
 
-Like
+## Query order of execution
+
+1. FROM and JOINs
+2. WHERE
+3. GROUP BY
+4. HAVING
+5. SELECT
+6. DISTINCT
+7. ORDER BY
+8. LIMIT / OFFSET
+
+## INSERT INTO
 
 ```sql
-'%text%'   -- 包含 "text"
-'text%'    -- 以 "text" 开头
-'%text'    -- 以 "text" 结尾
-'_text_'   -- "_" 代表单个字符
-'%te_t%'   -- "_" 代表单个字符，"te_t" 之间任意字符匹配
+INSERT INTO table_name (column1, column2, ...)
+VALUES (value1, value2, ...);
 ```
 
-Nested queries
+## UPDATE
 
 ```sql
-select * from family_members where num_books_read = (select max(num_books_read) from family_members)
+UPDATE table_name
+SET column1 = value1, column2 = value2
+[WHERE condition];
 ```
 
-Date
+## DELETE
 
 ```sql
-select * from celebs_born where birthdate > '1980-09-01'
+DELETE FROM table_name [WHERE condition];
 ```
 
-## JOIN
-
-1. `INNER JOIN` / `JOIN`: Keeps only the rows from both tables where they match up.
+## CREATE TABLE
 
 ```sql
-SELECT * FROM users JOIN posts ON users.id = posts.user_id
+CREATE TABLE table_name (
+    column_name data_type [NOT NULL] [DEFAULT default_value] [AUTO_INCREMENT] [PRIMARY KEY],
+    column_name data_type [NOT NULL] [DEFAULT default_value],
+    ...
+    [PRIMARY KEY (column_name)],
+    [UNIQUE (column_name)],
+    [FOREIGN KEY (column_name) REFERENCES other_table(other_column)]
+);
 ```
 
-3. `LEFT OUTER JOIN`
-4. `RIGHT OUTER JOIN`
-5. `FULL OUTER JOIN`
-6. Self joins
-
-## Aggregate
-
-1. COUNT
-
-   COUNT(\*): Number of rows
-
-2. SUM
-
-   SUM(column_name): Sum of a given value.
-
-3. AVG
-
-   AVG(column_name): Average of a given value.
-
-4. MIN
-5. MAX
-
-HAVING: Which is essentially the WHERE for aggregates.
+## DROP
 
 ```sql
-SELECT users.id, users.name, COUNT(posts.id) AS posts_written
-FROM users
-JOIN posts ON users.id = posts.user_id
-GROUP BY users.id, users.name
-HAVING COUNT(posts.id) >= 10;
+DROP TABLE table_name;
+
+DROP DATABASE database_name;
 ```
