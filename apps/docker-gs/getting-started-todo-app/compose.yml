@@ -83,7 +83,7 @@ services:
           action: rebuild
     labels:
       traefik.http.routers.backend.rule: Host(`localhost`) && PathPrefix(`/api`)
-      traefik.http.services.backend.loadbalancer.server.port: 3000
+      traefik.http.services.backend.loadbalancer.server.port: 3001
 
   ###################################################
   # Service: client
