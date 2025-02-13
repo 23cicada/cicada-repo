@@ -1,9 +1,9 @@
 # syntax=docker/dockerfile:1
 
-FROM node:23.7.0
+FROM node:20-alpine
 WORKDIR /app
-COPY . .
-RUN yarn config set "strict-ssl" false -g
+COPY package.json yarn.lock ./
 RUN yarn install --production
+COPY . .
 CMD ["node", "src/index.js"]
 EXPOSE 3000
