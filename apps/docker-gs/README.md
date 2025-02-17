@@ -87,6 +87,12 @@ docker run --env-file .env postgres env
 docker run -e foo=bar postgres env
 ```
 
+```shell
+docker run -d -p 127.0.0.1:3000:3000 getting-started
+# -d 后台运行容器，这意味着 Docker 会启动你的容器后立即返回终端提示符。
+# 127.0.0.1:3000:3000 将主机的 3000 端口绑定到容器的 3000 端口。
+```
+
 ## Persisting container data - Volumes
 
 如果希望容器内生成或修改的数据在容器停止运行后仍然保持不丢失。
@@ -101,12 +107,28 @@ docker volume ls
 docker volume rm <volume-name-or-id>
 docker volume prune # 删除所有未使用的卷
 ```
+
+```shell
+docker volume create todo-db
+docker run -dp 127.0.0.1:3000:3000 --mount type=volume,src=todo-db,target=/etc/todos getting-started
+
+docker volume inspect todo-db
+```
+
+
 ## Bind mount
 
 如果希望主机系统和容器之间直接共享特定的文件或目录（比如配置文件或开发代码）。
 
 ```shell
 docker run -d --name my_site -p 8080:80 --mount type=bind,source=./,target=/usr/local/apache2/htdocs/ httpd:2.4
+```
+
+```shell
+docker run -dp 127.0.0.1:3000:3000 \
+    -w /app --mount type=bind,src="$(pwd)",target=/app \
+    node:18-alpine \
+    sh -c "yarn install && yarn run dev"
 ```
 
 ## Custom network
@@ -120,6 +142,10 @@ docker network rm mynetwork
 ```shell
 docker run -d -e POSTGRES_PASSWORD=secret -p 5434:5432 --network mynetwork postgres
 ```
+
+`type=volume,src=my-volume,target=/usr/local/data`
+
+`type=bind,src=/path/to/data,target=/usr/local/data`
 
 ## Multi-container applications
 ```shell
@@ -149,6 +175,7 @@ docker init
 
 ```shell
 docker build -t TARGET_IMAGE .
+# . 表示 Docker 应该在当前目录中查找 Dockerfile。
 ```
 
 ```shell
@@ -157,6 +184,17 @@ docker image ls # 列出本地 Docker 镜像
 
 ```shell
 docker image history IMAGE # Show the history of an image
+```
+
+```shell
+docker ps # 列出正在运行的容器
+docker stop <container-id> # 停止正在运行的容器
+docker rm <container-id> # 删除容器
+docker rm -f <the-container-id> # 停止并删除容器
+```
+
+```shell
+docker logs <container-id> # 查看容器日志
 ```
 
 ```shell
