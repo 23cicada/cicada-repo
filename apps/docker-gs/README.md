@@ -81,6 +81,67 @@ services:
 docker run -P
 ```
 
+`--env-file` 命令用于在运行 Docker 容器时从文件中读取环境变量。
+```shell
+docker run --env-file .env postgres env
+docker run -e foo=bar postgres env
+```
+
+## Persisting container data - Volumes
+
+如果希望容器内生成或修改的数据在容器停止运行后仍然保持不丢失。
+
+```shell
+docker volume create log-data
+docker run -d -p 80:80 -v log-data:/logs docker/welcome-to-docker
+```
+
+```shell
+docker volume ls
+docker volume rm <volume-name-or-id>
+docker volume prune # 删除所有未使用的卷
+```
+## Bind mount
+
+如果希望主机系统和容器之间直接共享特定的文件或目录（比如配置文件或开发代码）。
+
+```shell
+docker run -d --name my_site -p 8080:80 --mount type=bind,source=./,target=/usr/local/apache2/htdocs/ httpd:2.4
+```
+
+## Custom network
+
+```shell
+docker network create mynetwork
+docker network ls
+docker network rm mynetwork
+```
+
+```shell
+docker run -d -e POSTGRES_PASSWORD=secret -p 5434:5432 --network mynetwork postgres
+```
+
+## Multi-container applications
+```shell
+docker build -t nginx .
+docker build -t web .
+
+docker network create sample-app
+docker run -d  --name redis --network sample-app --network-alias redis redis
+docker run -d --name web1 -h web1 --network sample-app --network-alias web1 web
+docker run -d --name web2 -h web2 --network sample-app --network-alias web2 web
+docker run -d --name nginx --network sample-app  -p 80:80 nginx
+docker ps
+
+```
+
+Simplify the deployment using Docker Compose
+
+
+```shell
+docker compose up -d --build
+```
+
 # Command
 ```shell
 docker init
@@ -111,4 +172,32 @@ docker compose up
 
 ```shell
 docker compose down # 停止并删除所有容器
+```
+## Postgres with volume
+
+```shell
+docker run --name=db -e POSTGRES_PASSWORD=secret -d -v postgres_data:/var/lib/postgresql/data postgres
+
+```
+
+```shell
+docker exec -ti db psql -U postgres
+```
+1. docker exec 在正在运行的容器中执行命令
+2. -ti 表示分配一个伪终端
+3. psql -U postgres 连接到 PostgreSQL 数据库，使用 postgres 用户
+4. \q 退出 psql
+
+
+```shell
+docker stop db
+docker rm db
+```
+
+```shell
+docker run --name=new-db -d -v postgres_data:/var/lib/postgresql/data postgres
+```
+
+```shell
+docker exec -ti new-db psql -U postgres -c "SELECT * FROM tasks"
 ```
