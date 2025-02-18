@@ -41,6 +41,15 @@ EXPOSE 3000
 
 对于基于 Node 的应用，依赖项定义在 package.json 文件中。如果该文件发生更改，则需要重新安装依赖项；如果未更改，则应使用缓存的依赖项。因此，首先只复制 package.json 文件，然后安装依赖项，最后再复制项目的其他文件。这样，只有当 package.json 发生变化时，才需要重新安装 Yarn 依赖项。
 
+```dockerfile
+FROM node:lts-alpine
+WORKDIR /app
+COPY package.json yarn.lock ./
+RUN yarn install --production
+COPY . .
+CMD ["node", "src/index.js"]
+```
+
 ## Multi-stage builds
 对于 JavaScript、Ruby 或 Python 这类解释型语言，可以在一个阶段中构建和压缩（minify）代码，然后将生产环境可用的文件复制到更小的运行时镜像中。这样可以优化镜像，使其更适合部署。
 ```shell
@@ -57,6 +66,20 @@ COPY --from=build-stage /path/in/build/stage /path/to/place/in/final/stage
 # Define runtime configuration (e.g., CMD, ENTRYPOINT)
 
 # --from 用于从另一个构建阶段或已有镜像复制文件到当前构建环境。
+```
+
+```dockerfile
+# syntax=docker/dockerfile:1
+FROM node:lts AS build
+WORKDIR /app
+COPY package* yarn.lock ./
+RUN yarn install
+COPY public ./public
+COPY src ./src
+RUN yarn run build
+
+FROM nginx:alpine
+COPY --from=build /app/build /usr/share/nginx/html
 ```
 
 # Running containers
