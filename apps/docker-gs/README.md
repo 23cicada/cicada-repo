@@ -262,3 +262,6 @@ docker run --name=new-db -d -v postgres_data:/var/lib/postgresql/data postgres
 ```shell
 docker exec -ti new-db psql -U postgres -c "SELECT * FROM tasks"
 ```
+## Compose file
+
+`command`: 覆盖容器镜像中声明的默认命令，例如 Dockerfile 中的 `CMD` 指令。
