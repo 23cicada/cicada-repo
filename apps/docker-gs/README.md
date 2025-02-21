@@ -265,3 +265,5 @@ docker exec -ti new-db psql -U postgres -c "SELECT * FROM tasks"
 ## Compose file
 
 `command`: 覆盖容器镜像中声明的默认命令，例如 Dockerfile 中的 `CMD` 指令。
+
+## [Compose watch](https://docs.docker.com/compose/how-tos/file-watch/)
