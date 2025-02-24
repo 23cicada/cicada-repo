@@ -11,8 +11,16 @@
 const babelRegister = require('@babel/register');
 babelRegister({
   ignore: [/[\\\/](build|server\/server|node_modules)[\\\/]/],
-  presets: [['react-app', {runtime: 'automatic'}]],
-  plugins: ['@babel/transform-modules-commonjs'],
+  presets: [['react-app', {
+    runtime: 'automatic',
+    // Resolve the error:
+    // Error [ERR_REQUIRE_ESM]: require() of ES Module /app/node_modules/@babel/runtime/helpers/esm/slicedToArray.js from /app/src/Post.js not supported.
+    // Instead change the require of slicedToArray.js in /app/src/Post.js to a dynamic import() which is available in all CommonJS modules.
+    useESModules: false
+  }]],
+  plugins: [
+    ['@babel/transform-modules-commonjs']
+  ],
 });
 
 const express = require('express');
