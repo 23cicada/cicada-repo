@@ -2,7 +2,7 @@ FROM node:16.20.2
 
 WORKDIR /app
 
-COPY package.json pnpm-lock.yaml* ./
+COPY package.json package-lock.json ./
 
 RUN corepack enable
 

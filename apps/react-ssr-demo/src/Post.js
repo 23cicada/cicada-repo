@@ -6,10 +6,14 @@
  *
  */
 
+import { useState } from 'react';
+
 export default function Post() {
+  const [count, setCount] = useState(0);
   return (
     <>
       <h1>Hello world</h1>
+      <button onClick={() => setCount(count + 1)}>Click me {count}</button>
       <p>
         This demo is <b>artificially slowed down</b>. Open{' '}
         <code>server/delays.js</code> to adjust how much different things are
