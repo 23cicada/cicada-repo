@@ -6,26 +6,8 @@ import indexRouter from "./routes/indexRouter.ts"
 import path from "node:path"
 import errorHandler from "./controllers/errorController.ts"
 
-const isProduction = process.env.NODE_ENV === "production"
-const base = process.env.BASE ?? "/"
 const assetsPath = path.join(import.meta.dirname, "public")
 const app = express()
-
-let vite
-if (!isProduction) {
-  const { createServer } = await import("vite")
-  vite = await createServer({
-    server: { middlewareMode: true },
-    appType: "custom",
-    base,
-  })
-  app.use(vite.middlewares)
-} else {
-  const compression = (await import("compression")).default
-  const sirv = (await import("sirv")).default
-  app.use(compression())
-  app.use(base, sirv("./dist/client", { extensions: [] }))
-}
 
 app.set("views", path.join(import.meta.dirname, "views"))
 app.set("view engine", "ejs")
@@ -48,5 +30,5 @@ app.use(errorHandler)
 const PORT = process.env.PORT ?? 3001
 
 app.listen(PORT, () => {
-  console.log(`My first Express app - listening on port ${PORT}!`)
+  console.log(`My first Express app - listening on port ${PORT}!!!!`)
 })
