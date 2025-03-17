@@ -10,6 +10,29 @@ For more information, see the [course curriculum](https://nextjs.org/learn) on t
 
 2. Dynamic Rendering (at request time)
 
+3. Partial Prerendering 在同一路由中结合静态和动态渲染。
+
+  在 React Suspense 中，静态内容会在构建时（或重新验证时）被预渲染并嵌入到初始 HTML 文件中，形成一个静态 shell。而动态内容的渲染则会推迟到用户实际请求该路由时才进行。
+
+  将组件包裹在 Suspense 中并不会使该组件本身变成动态的。Suspense 实际上是作为静态代码和动态代码之间的一个边界来使用的。
+
+  ```javscript
+  import type { NextConfig } from 'next';
+
+  const nextConfig: NextConfig = {
+    experimental: {
+      ppr: 'incremental'
+    }
+  };
+
+  export default nextConfig;
+
+  Layout:
+
+  export const experimental_ppr = true;
+
+  ```
+
 on the server:
 
 1. Server components => React Server Component Payload (RSC Payload)
