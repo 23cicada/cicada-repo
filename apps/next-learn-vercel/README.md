@@ -68,11 +68,17 @@ The RSC Payload contains:
 
 
 
-# Routing
-- page.tsx
-- layout.tsx
+### Routing
+- `page.tsx`
+- `layout.tsx`
 
-# navigating
+#### navigating
 - `<Link>`
 - `useRouter()`
-- `redirect()` For Server Components
+- For Server Components `redirect()`
+- `window.history.pushState/replaceState(null, '', url)`
+
+1. Code splitting (by route segments)
+2. Prefetching (`router.prefetch()` & `<Link>`)
+3. Client-side cache: the React Server Component Payload of prefetched route segments and visited routes are stored in the cache.
+4. Partial rendering: only the route segments that change on navigation re-render on the client, and any shared segments are preserved.
