@@ -60,3 +60,19 @@ The RSC Payload contains:
 1. At the page level(route segments) `loading.tsx`
 
 2. At the component level(UI components) `<Suspense>`
+
+
+
+
+
+
+
+
+# Routing
+- page.tsx
+- layout.tsx
+
+# navigating
+- `<Link>`
+- `useRouter()`
+- `redirect()` For Server Components
