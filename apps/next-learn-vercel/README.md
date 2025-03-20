@@ -71,8 +71,14 @@ The RSC Payload contains:
 ### Routing
 - `page.tsx`
 - `layout.tsx`
+- `error.tsx` & `global-error.tsx`
+- `loading.tsx` (Streaming)
+- `(folderName)` Route Groups
+- `[folderName]` Dynamic Routes
 
-#### navigating
+`generateStaticParams` 可以与  dynamic route 结合，在构建时静态生成路由，而非在请求时按需生成。
+
+#### Navigating
 - `<Link>`
 - `useRouter()`
 - For Server Components `redirect()`
@@ -82,3 +88,17 @@ The RSC Payload contains:
 2. Prefetching (`router.prefetch()` & `<Link>`)
 3. Client-side cache: the React Server Component Payload of prefetched route segments and visited routes are stored in the cache.
 4. Partial rendering: only the route segments that change on navigation re-render on the client, and any shared segments are preserved.
+
+#### Redirecting
+
+- `redirect`(303,307), `permanentRedirect`(308):  Server Components, Route Handlers, and Server Actions.
+- `useRouter`
+- `redirects`(307,308) in `next.config.js`
+- `NextResponse.redirect`(any) in Middleware: Middleware runs after redirects in next.config.js and before rendering.
+
+在 Server Action 中使用 `redirect`，将返回 303(See Other)，用于POST请求成功后重定向到成功页面。
+#### Server action
+
+使用 `useActionState(fn, initialState, permalink?)` 管理错误并返回给服务端。
+
+
