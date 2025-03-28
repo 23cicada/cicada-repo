@@ -4,11 +4,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "node --experimental-strip-types --experimental-transform-types --disable-warning=ExperimentalWarning --watch ./src/app.ts",
+    "dev": "pnpm run node:strip --watch-path=./src",
     "build": "pnpm run build:client && pnpm run build:server",
     "build:client": "vite build app --outDir dist/client",
     "build:server": "vite build app --ssr entry-server.tsx --outDir dist/server",
-    "preview": "cross-env NODE_ENV=production node server"
+    "preview": "cross-env NODE_ENV=production pnpm run node:strip",
+    "node:strip": "node --experimental-strip-types --experimental-transform-types --disable-warning=ExperimentalWarning ./src/app.ts"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:^",

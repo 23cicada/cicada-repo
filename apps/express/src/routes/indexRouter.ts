@@ -4,6 +4,7 @@ import type { ViteDevServer } from "vite"
 import { type EntryServerRender } from "../../app/interface.ts"
 import { Transform } from "node:stream"
 import path from "node:path"
+import { pathToFileURL } from "node:url"
 
 const isProduction = process.env.NODE_ENV === "production"
 const base = process.env.BASE ?? "/"
@@ -23,6 +24,7 @@ if (!isProduction) {
     server: { middlewareMode: true },
     appType: "custom",
     base,
+    root: appPath,
   })
   indexRouter.use(vite.middlewares)
 } else {
@@ -48,9 +50,11 @@ indexRouter.get("/", async (req, res) => {
       ).default
     } else {
       template = templateHtml
-      render = (await import(path.join(appPath, "dist/server/entry-server.js")))
-        .default
-      // render = (await import("../../app/dist/server/entry-server.js")).default
+      render = (
+        await import(
+          pathToFileURL(path.join(appPath, "dist/server/entry-server.js")).href
+        )
+      ).default
       /* eslint-enable */
     }
 
