@@ -26,10 +26,9 @@ export default [
     rules: {
       "@typescript-eslint/restrict-template-expressions": [
         "error",
-        {
-          "allowNumber": true
-        }
-      ]
+        { "allowNumber": true }
+      ],
+      "@typescript-eslint/unbound-method": "off"
     }
   },
   // https://typescript-eslint.io/troubleshooting/typed-linting/#i-get-errors-telling-me--was-not-found-by-the-project-service-consider-either-including-it-in-the-tsconfigjson-or-including-it-in-allowdefaultproject
@@ -43,9 +42,10 @@ export default [
       "no-unused-vars": "off",
       "@typescript-eslint/no-unused-vars": "off",
       "@typescript-eslint/no-non-null-assertion": "off",
-      "@typescript-eslint/ban-ts-comment": ["error", {
-        "ts-expect-error": false
-      }]
+      "@typescript-eslint/ban-ts-comment": [
+        "error",
+        { "ts-expect-error": false }
+      ]
     }
   }
 ];

@@ -1,25 +1,19 @@
-import reactLogo from "./assets/react.svg"
-import { useState } from "react"
-import testImg from "./assets/IMG.png"
+// import {
+//   createBrowserRouter,
+//   RouterProvider,
+// } from "react-router";
 
-const App = () => {
-  const [count, setCount] = useState(0)
-  return (
-    <div>
-      hhhhh
-      <img src={testImg} className="logo react" alt="React logo" />
-      <img src={reactLogo} className="logo react" alt="React logo" />
-      <button
-        onClick={() => {
-          setCount(count + 1)
-          console.log(count)
-        }}
-      >
-        Click me
-      </button>
-      <p>Count: {count}</p>
-    </div>
-  )
-}
+// const router = createBrowserRouter([
+//   {
+//     path: "/",
+//     element: <div>Hello World</div>,
+//   },
+// ]);
 
-export default App
+// const App = () => {
+//   return (
+//     <RouterProvider router={router} />
+//   )
+// }
+
+// export default App;
