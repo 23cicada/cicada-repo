@@ -3,6 +3,7 @@
   "extends": "@repo/typescript-config/type-stripping.json",
   "compilerOptions": {
     "jsx": "react-jsx",
-    "lib": ["es2022", "DOM", "DOM.Iterable"]
+    "lib": ["es2022", "DOM", "DOM.Iterable"],
+    "include": ["src", "app"]
   }
 }

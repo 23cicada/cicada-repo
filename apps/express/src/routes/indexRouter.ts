@@ -60,7 +60,7 @@ indexRouter.get("/", async (req, res) => {
 
     let didError = false
 
-    const { pipe, abort } = render(url, {
+    const { pipe, abort } = render(req, {
       onShellError() {
         res.status(500)
         res.set({ "Content-Type": "text/html" })

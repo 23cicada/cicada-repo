@@ -2,9 +2,10 @@ import {
   type RenderToPipeableStreamOptions,
   type PipeableStream,
 } from "react-dom/server"
+import type { Request } from "express"
 
 type EntryServerRender = (
-  url: string,
+  req: Request,
   options?: RenderToPipeableStreamOptions,
 ) => PipeableStream
 
