@@ -35,7 +35,7 @@ if (!isProduction) {
   )
 }
 
-indexRouter.get("/", async (req, res) => {
+indexRouter.all("*", async (req, res) => {
   try {
     const url = req.originalUrl.replace(base, "")
     let template, render: EntryServerRender

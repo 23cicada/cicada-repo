@@ -1,6 +1,7 @@
 import { data } from "react-router"
 
 export default async function load() {
+  console.log("about.load")
   await new Promise((resolve) => setTimeout(resolve, 200))
 
   const isServer = typeof document === "undefined"

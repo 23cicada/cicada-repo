@@ -1,6 +1,7 @@
 import { type LoaderFunctionArgs } from "react-router"
 
 export async function loader({ request }: LoaderFunctionArgs) {
+  console.log("layout.client.loader")
   const url = new URL(request.url)
   const res = await fetch(url, {
     headers: {
