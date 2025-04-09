@@ -1,12 +1,9 @@
-import {
-  type RenderToPipeableStreamOptions,
-  type PipeableStream,
-} from "react-dom/server"
-import type { Request } from "express"
+import type { Request, Response } from "express"
 
-type EntryServerRender = (
-  req: Request,
-  options?: RenderToPipeableStreamOptions,
-) => PipeableStream
+type EntryServerRender = (params: {
+  req: Request
+  res: Response
+  template: string
+}) => void
 
 export type { EntryServerRender }

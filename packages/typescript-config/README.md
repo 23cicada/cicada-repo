@@ -1,4 +1,5 @@
 ## [The TSConfig Cheat Sheet](https://www.totaltypescript.com/tsconfig-cheat-sheet)
+## [@tsconfig/bases](https://github.com/tsconfig/bases)
 
 ```json
 {

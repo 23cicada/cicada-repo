@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "@repo/typescript-config/node-ts.json",
+  "include": ["src"],
+  "compilerOptions": {
+    "allowImportingTsExtensions": true
+  }
+}

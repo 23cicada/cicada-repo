@@ -1,4 +1,4 @@
-import eslintConfigBase from "@repo/eslint-config/eslint-config-base"
+import eslintConfigReact from "@repo/eslint-config/eslint-config-react"
 
 /** @type {import('eslint').Linter.Config[]} */
-export default eslintConfigBase
+export default eslintConfigReact
