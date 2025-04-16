@@ -7,14 +7,12 @@ import path from "node:path"
 import errorHandler from "./controllers/errorController.ts"
 import next from "next"
 
-const test = null
-
-const PORT = parseInt(process.env.PORT || '3001', 10)
-const DEV = process.env.NODE_ENV !== "production";
+const PORT = parseInt(process.env.PORT || "3001", 10)
+const DEV = process.env.NODE_ENV !== "production"
 const assetsPath = path.join(import.meta.dirname, "public")
 const nextApp = (next as unknown as typeof next.default)({
   dev: DEV,
-  dir: path.join(import.meta.dirname, '../next')
+  dir: path.join(import.meta.dirname, "../next"),
 })
 const handle = nextApp.getRequestHandler()
 
@@ -39,14 +37,14 @@ app.use("/msg-board", msgBoardRouter)
 app.use(errorHandler)
 
 nextApp.prepare().then(() => {
-  app.get('*', (req, res) => {
-    return handle(req, res);
-  });
+  app.get("*", (req, res) => {
+    return handle(req, res)
+  })
   app.listen(PORT, () => {
     console.log(
       `> Server listening at http://localhost:${PORT} as ${
-        DEV ? 'development' : process.env.NODE_ENV
-      }`
+        DEV ? "development" : process.env.NODE_ENV
+      }`,
     )
   })
 })

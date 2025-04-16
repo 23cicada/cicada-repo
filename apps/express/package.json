@@ -4,8 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "node --experimental-strip-types --experimental-transform-types --disable-warning=ExperimentalWarning --watch-path=./next ./src/app.ts",
-    "lint": "next lint next/ --file ./next/app/ayout.tsx"
+    "dev": "node --experimental-strip-types --experimental-transform-types --disable-warning=ExperimentalWarning --watch-path=./src ./src/app.ts",
+    "lint:next": "next lint ./next --config next/eslint.config.mjs",
+    "lint:node": "pnpm eslint"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:^",
