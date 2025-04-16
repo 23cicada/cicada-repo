@@ -1,5 +1,5 @@
 packages:
   - "apps/*"
   - "packages/*"
-  - '!apps/react-ssr-demo'
-  - '!apps/docker-gs'
+  - '!apps/blog'
+  - '!apps/demo'

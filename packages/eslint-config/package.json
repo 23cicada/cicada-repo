@@ -5,12 +5,14 @@
   "exports": {
     "./eslint-config-react": "./eslint-config-react.mjs",
     "./eslint-config-next": "./eslint-config-next.mjs",
-    "./eslint-config-base": "./eslint-config-base.mjs"
+    "./eslint-config-base": "./eslint-config-base.mjs",
+    "./globals": "./globals.mjs"
   },
   "devDependencies": {
     "@eslint/compat": "^1.2.4",
     "@eslint/eslintrc": "^3.2.0",
     "@eslint/js": "^9.16.0",
+    "@next/eslint-plugin-next": "^15.3.0",
     "eslint": "^9.16.0",
     "eslint-config-next": "^15.1.0",
     "eslint-config-prettier": "^9.1.0",

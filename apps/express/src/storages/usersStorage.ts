@@ -41,7 +41,7 @@ class UsersStorage {
   }
 
   deleteUser(id: string) {
-    // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+     
     delete this.storage[id]
   }
 
