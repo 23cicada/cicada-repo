@@ -1,5 +1,5 @@
 import { Router } from "express"
-import { getAuthorById } from "../controllers/authorController.ts"
+import { getAuthorById } from "../../controllers/authorController.ts"
 
 const booksRouter = Router()
 const indexRouter = Router()
