@@ -1,8 +1,6 @@
 import express from "express"
-import usersRouter from "./routes/usersRouter.ts"
-import booksRouter from "./routes/booksRouter.ts"
-import msgBoardRouter from "./routes/msgBoardRouter.ts"
 // import indexRouter from "./routes/indexRouter.ts"
+import viewsRouter from "./routes/views/indexRouter.ts"
 import path from "node:path"
 import errorHandler from "./controllers/errorController.ts"
 import next from "next"
@@ -26,20 +24,12 @@ app.set("view engine", "ejs")
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static(assetsPath))
 
-app.use("/users", usersRouter)
-app.use("/books", booksRouter)
-app.use("/msg-board", msgBoardRouter)
-// app.use("/", indexRouter)
-// app.use((req, res) => {
-//   res.status(404).render("404")
-// })
-
-app.use(errorHandler)
-
 nextApp.prepare().then(() => {
-  app.get("*", (req, res) => {
-    return handle(req, res)
-  })
+  app.get("/", (_, res) => res.render("index", { title: "Home" }))
+  app.use("/views", viewsRouter)
+  app.use("/cicada", (req, res) => handle(req, res))
+  app.use((_, res) => res.status(404).render("404"))
+  app.use(errorHandler)
   app.listen(PORT, () => {
     console.log(
       `> Server listening at http://localhost:${PORT} as ${
