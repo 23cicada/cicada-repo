@@ -1,15 +1,14 @@
 "use client"
 
-import { useState } from "react"
+import Link from "next/link"
 
 const App = () => {
-  const [count, setCount] = useState(0)
   return (
-    <div>
-      <img />
-      Hello World!
-      <button onClick={() => setCount(count + 1)}>{count}</button>
-    </div>
+    <ul>
+      <li>
+        <Link href="/username">Username</Link>
+      </li>
+    </ul>
   )
 }
 

@@ -20,7 +20,19 @@ export default [
   eslintConfigPrettier,
   ...pluginTurbo,
   // https://github.com/vercel/next.js/issues/64114#issuecomment-2440625243
-  ...compat.extends("next/core-web-vitals", "next/typescript")
+  ...compat.extends("next/core-web-vitals", "next/typescript"),
+  {
+    rules: {
+      // https://typescript-eslint.io/rules/no-unused-vars/#how-to-use
+      "no-unused-vars": "off",
+      "@typescript-eslint/no-unused-vars": "off",
+
+      "no-empty-function": "off",
+      "@typescript-eslint/no-empty-function": "off",
+
+      "@typescript-eslint/no-non-null-assertion": "off"
+    }
+  }
 ]
 
 // Document: https://nextjs.org/docs/app/api-reference/config/eslint

@@ -26,8 +26,8 @@ app.use(express.static(assetsPath))
 
 nextApp.prepare().then(() => {
   app.get("/", (_, res) => res.render("index", { title: "Home" }))
+  app.get("/cicada*", (req, res) => handle(req, res))
   app.use("/views", viewsRouter)
-  app.use("/cicada", (req, res) => handle(req, res))
   app.use((_, res) => res.status(404).render("404"))
   app.use(errorHandler)
   app.listen(PORT, () => {

@@ -1,10 +1,18 @@
 import asyncHandler from "express-async-handler"
-import * as db from "../db.ts"
 import ResourceNotFoundError from "../errors/ResourceNotFoundError.ts"
+
+async function getMockAuthorById(authorId: number) {
+  const authors = [
+    { id: 1, name: "Bryan" },
+    { id: 2, name: "Christian" },
+    { id: 3, name: "Jason" },
+  ]
+  return Promise.resolve(authors.find((author) => author.id === authorId))
+}
 
 const getAuthorById = asyncHandler(async (req, res) => {
   const { authorId } = req.params
-  const author = await db.getAuthorById(Number(authorId))
+  const author = await getMockAuthorById(Number(authorId))
   if (!author) {
     throw new ResourceNotFoundError("Author not found")
   }
