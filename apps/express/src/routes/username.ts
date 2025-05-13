@@ -1,15 +1,10 @@
 import { Router } from "express"
+import * as usernameController from "../controllers/usernameController.ts"
 
 const username = Router()
 
-username.get("/", (req, res) => {
-  console.log("usernames will be logged here - wip")
-})
+username.get("/", usernameController.getUsernames)
 
-username.get("/new", () => {})
-
-username.post("/new", (req) => {
-  console.log("username to be saved: ", req.body.username)
-})
+username.post("/new", usernameController.createUsername)
 
 export default username

@@ -1,9 +1,9 @@
 import express from "express"
-// import indexRouter from "./routes/indexRouter.ts"
-import viewsRouter from "./routes/views/indexRouter.ts"
-import path from "node:path"
-import errorHandler from "./controllers/errorController.ts"
 import next from "next"
+import path from "node:path"
+import viewsRouter from "./routes/views/indexRouter.ts"
+import errorHandler from "./controllers/errorController.ts"
+import apiRouter from "./routes/index.ts"
 
 const PORT = parseInt(process.env.PORT || "3001", 10)
 const DEV = process.env.NODE_ENV !== "production"
@@ -28,6 +28,7 @@ nextApp.prepare().then(() => {
   app.get("/", (_, res) => res.render("index", { title: "Home" }))
   app.get("/cicada*", (req, res) => handle(req, res))
   app.use("/views", viewsRouter)
+  app.use("/api", apiRouter)
   app.use((_, res) => res.status(404).render("404"))
   app.use(errorHandler)
   app.listen(PORT, () => {

@@ -8,15 +8,18 @@ const errorHandler: ErrorRequestHandler = (
   next,
 ) => {
   switch (err.statusCode) {
-    case 404:
-      {
-        res.status(err.statusCode).render("404", {
-          message: err.message,
-        })
-      }
-      break
+    // case 404:
+    //   {
+    //     res.status(err.statusCode).render("404", {
+    //       message: err.message,
+    //     })
+    //   }
+    //   break
     default:
-      res.status(err.statusCode ?? 500).send(err.message)
+      res.status(err.statusCode ?? 500).send({
+        success: false,
+        message: err.message,
+      })
   }
 }
 
