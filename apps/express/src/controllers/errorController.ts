@@ -4,6 +4,7 @@ import AppError from "../errors/AppError.ts"
 import { ErrorCode } from "../errors/errorCode.ts"
 
 const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
+  console.error(err)
   const stack = process.env.NODE_ENV === "production" ? null : err.stack
 
   if (err instanceof AppError) {

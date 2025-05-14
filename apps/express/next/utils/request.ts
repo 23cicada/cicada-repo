@@ -2,15 +2,27 @@ interface RequestOptions extends RequestInit {
   params?: Record<string, string>
 }
 
-interface ResponseData<T = unknown> {
+interface SuccessResponse<T = unknown> {
+  success: true
   data: T
-  status: number
+  message?: string
 }
+
+interface ErrorResponse {
+  success: false
+  error: {
+    code: string
+    message: string
+    details?: unknown
+  }
+}
+
+type ResponseResult<T> = SuccessResponse<T> | ErrorResponse
 
 async function fetchRequest<T>(
   url: string,
   options: RequestOptions = {},
-): Promise<ResponseData<T>> {
+): Promise<ResponseResult<T>> {
   const { params, ...restOptions } = options
 
   let requestUrl = process.env.API_BASE_URL + url
@@ -27,17 +39,16 @@ async function fetchRequest<T>(
         ...restOptions.headers,
       },
     })
-
-    const data = await response.json()
-
-    return {
-      data,
-      status: response.status,
-    }
+    return await response.json()
   } catch (error) {
-    throw new Error(
-      `Error: ${error instanceof Error ? error.message : String(error)}`,
-    )
+    console.error(error)
+    return {
+      success: false,
+      error: {
+        code: "UNEXPECTED_ERROR",
+        message: error instanceof Error ? error.message : String(error),
+      },
+    }
   }
 }
 
