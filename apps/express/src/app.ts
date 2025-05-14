@@ -1,13 +1,11 @@
+import "dotenv/config"
 import express from "express"
 import next from "next"
 import path from "node:path"
-import dotenv from "dotenv"
 import viewsRouter from "./routes/views/indexRouter.ts"
 import errorHandler from "./controllers/errorController.ts"
 import apiRouter from "./routes/index.ts"
 import responseEnhancer from "./middlewares/responseEnhancer.ts"
-
-dotenv.config()
 
 const PORT = parseInt(process.env.PORT || "3001", 10)
 const DEV = process.env.NODE_ENV !== "production"
