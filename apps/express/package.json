@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "node --experimental-strip-types --experimental-transform-types --disable-warning=ExperimentalWarning --watch-path=./src ./src/app.ts",
+    "dev": "set NODE_ENV=development && node --experimental-strip-types --experimental-transform-types --disable-warning=ExperimentalWarning --watch-path=./src ./src/app.ts",
     "lint:next": "next lint ./next --config next/eslint.config.mjs",
     "lint:node": "pnpm eslint"
   },
@@ -24,6 +24,7 @@
   "dependencies": {
     "compression": "^1.8.0",
     "cross-env": "^7.0.3",
+    "dotenv": "^16.5.0",
     "ejs": "^3.1.10",
     "express": "^4.21.2",
     "express-async-handler": "^1.2.0",
