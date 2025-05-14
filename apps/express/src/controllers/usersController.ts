@@ -2,7 +2,7 @@ import usersStorage from "../storages/usersStorage.ts"
 import type { UserInfo, UserSearchParams } from "../interface.ts"
 import { body, validationResult, query } from "express-validator"
 import type { Request, Response } from "express"
-import NotFoundError from "../errors/NotFoundError.ts"
+import { NotFoundError } from "../errors/index.ts"
 
 const alphaErr = "must only contain letters."
 const lengthErr = "must be between 1 and 10 characters."
