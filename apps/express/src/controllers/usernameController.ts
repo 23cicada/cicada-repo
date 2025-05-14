@@ -4,7 +4,7 @@ import * as db from "../db/queries.ts"
 
 const getUsernames = asyncHandler(async (_, res: Response) => {
   const usernames = await db.getAllusernames()
-  res.json(usernames)
+  res.success(usernames)
 })
 
 const createUsername = asyncHandler(async (req: Request, res: Response) => {

@@ -1,5 +1,4 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "extends": "@repo/typescript-config/type-stripping.json",
-  "include": ["src/**/*"]
+  "extends": "@repo/typescript-config/type-stripping.json"
 }
