@@ -6,10 +6,13 @@ interface SuccessResponse<T = unknown> {
   success: true
   data: T
   message?: string
+  error?: never
 }
 
 interface ErrorResponse {
   success: false
+  data?: never
+  message?: never
   error: {
     code: string
     message: string

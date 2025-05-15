@@ -1,8 +1,17 @@
+"use client"
+import { useActionState } from "react"
+import { createUsername } from "./action"
+
 const NewUsername = () => {
+  const [message, action, isPending] = useActionState(createUsername, null)
   return (
-    <div>
-      <h1>New Username</h1>
-    </div>
+    <form action={action}>
+      <label htmlFor="username">Username: </label>
+      <input id="username" name="username" placeholder="Username" />
+      <button disabled={isPending} type="submit">
+        New
+      </button>
+    </form>
   )
 }
 

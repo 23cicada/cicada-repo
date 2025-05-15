@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "NODE_ENV=development node --experimental-strip-types --experimental-transform-types --disable-warning=ExperimentalWarning --watch-path=./src ./src/app.ts",
+    "dev": "node --inspect --experimental-strip-types --experimental-transform-types --disable-warning=ExperimentalWarning --watch-path=./src ./src/app.ts",
     "lint:next": "next lint ./next --config next/eslint.config.mjs",
     "lint:node": "pnpm eslint"
   },
