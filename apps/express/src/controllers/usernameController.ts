@@ -19,7 +19,7 @@ const createUsername = [
   asyncHandler(async (req: Request, res: Response) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
-      throw new ValidationError(errors.array().toString())
+      throw new ValidationError(errors.array())
     }
     const { username } = req.body
     await db.insertUsername(username)

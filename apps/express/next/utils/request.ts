@@ -2,30 +2,26 @@ interface RequestOptions extends RequestInit {
   params?: Record<string, string>
 }
 
-interface SuccessResponse<T = unknown> {
+interface SuccessResponse<T> {
   success: true
   data: T
-  message?: string
-  error?: never
+  code?: never
+  errors?: never
 }
 
-interface ErrorResponse {
+interface ErrorResponse<U> {
   success: false
+  code: string
+  errors: U
   data?: never
-  message?: never
-  error: {
-    code: string
-    message: string
-    details?: unknown
-  }
 }
 
-type ResponseResult<T> = SuccessResponse<T> | ErrorResponse
+type ResponseResult<T, U> = SuccessResponse<T> | ErrorResponse<U>
 
-async function fetchRequest<T>(
+async function fetchRequest<T, U>(
   url: string,
   options: RequestOptions = {},
-): Promise<ResponseResult<T>> {
+): Promise<ResponseResult<T, U>> {
   const { params, ...restOptions } = options
 
   let requestUrl = process.env.API_BASE_URL + url
@@ -47,24 +43,26 @@ async function fetchRequest<T>(
     console.error(error)
     return {
       success: false,
-      error: {
-        code: "UNEXPECTED_ERROR",
-        message: error instanceof Error ? error.message : String(error),
-      },
+      code: "UNEXPECTED_ERROR",
+      errors: (error instanceof Error ? error.message : String(error)) as U,
     }
   }
 }
 
 const request = {
-  get<T>(url: string, options: RequestOptions = {}) {
-    return fetchRequest<T>(url, {
+  get<T, U = unknown>(url: string, options: RequestOptions = {}) {
+    return fetchRequest<T, U>(url, {
       ...options,
       method: "GET",
     })
   },
 
-  post<T>(url: string, data?: unknown, options: RequestOptions = {}) {
-    return fetchRequest<T>(url, {
+  post<T, U = unknown>(
+    url: string,
+    data?: unknown,
+    options: RequestOptions = {},
+  ) {
+    return fetchRequest<T, U>(url, {
       ...options,
       method: "POST",
       body: JSON.stringify(data),

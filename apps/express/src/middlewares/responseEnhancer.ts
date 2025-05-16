@@ -5,22 +5,18 @@ export default function responseEnhancer(
   res: Response,
   next: NextFunction,
 ) {
-  res.success = (data, message, statusCode = 200) => {
+  res.success = (data, statusCode = 200) => {
     res.status(statusCode).json({
       success: true,
       data,
-      message,
     })
   }
 
-  res.error = (code, message, statusCode = 500, details) => {
+  res.error = (code, errors, statusCode = 500) => {
     res.status(statusCode).json({
       success: false,
-      error: {
-        code,
-        message,
-        details,
-      },
+      code,
+      errors,
     })
   }
 

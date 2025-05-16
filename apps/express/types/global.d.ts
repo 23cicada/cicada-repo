@@ -1,8 +1,8 @@
 declare global {
   namespace Express {
     interface Response {
-      success: <T = unknown>(data?: T, message?: string, statusCode?: number) => void;
-      error: (code: string, message: string, statusCode?: number, details?: unknown) => void;
+      success: <T = unknown>(data?: T, statusCode?: number) => void;
+      error: (code: string, errors?: unknown, statusCode?: number) => void;
     }
   }
 }
