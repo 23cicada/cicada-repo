@@ -2,8 +2,8 @@ import AppError from "./AppError.ts"
 import { ErrorCode } from "./errorCode.ts"
 
 export class NotFoundError extends AppError {
-  constructor(message = "The requested resource does not exist.") {
-    super(ErrorCode.NOT_FOUND, message)
+  constructor(errors?: unknown) {
+    super("The requested resource does not exist", ErrorCode.NOT_FOUND, errors)
     this.name = "NotFoundError"
   }
 }

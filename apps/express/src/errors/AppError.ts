@@ -1,17 +1,20 @@
 import { ErrorCode, ErrorCodeToHttpStatus } from "./errorCode.ts"
 
 class AppError extends Error {
-  public statusCode: number
-  public code: ErrorCode
+  public statusCode
+  public code
+  public errors
 
   constructor(
-    code: ErrorCode,
     message: string,
+    code: ErrorCode,
+    errors: unknown = null,
     statusCode = ErrorCodeToHttpStatus[code],
   ) {
     super(message)
-    this.statusCode = statusCode
     this.code = code
+    this.errors = errors
+    this.statusCode = statusCode
     Error.captureStackTrace(this, this.constructor)
   }
 }
