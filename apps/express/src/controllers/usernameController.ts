@@ -1,14 +1,22 @@
 import type { Request, Response } from "express"
 import asyncHandler from "express-async-handler"
-import { body, validationResult } from "express-validator"
+import { body, validationResult, query, matchedData } from "express-validator"
 import { ValidationError } from "../errors/ValidationError.ts"
 import * as db from "../db/queries.ts"
-import { NotFoundError } from "../errors/NotFoundError.ts"
 
-const getUsernames = asyncHandler(async (_, res: Response) => {
-  const usernames = await db.getAllusernames()
-  res.success(usernames)
-})
+const getUsernames = [
+  query("search")
+    .trim()
+    .notEmpty()
+    .matches(/^[A-Za-z0-9_]+$/),
+  asyncHandler(async (req: Request, res: Response) => {
+    const search = validationResult(req).isEmpty()
+      ? matchedData(req).search
+      : undefined
+    const usernames = await db.getAllusernames(search)
+    res.success(usernames)
+  }),
+]
 
 const createUsername = [
   body("username")
@@ -20,7 +28,9 @@ const createUsername = [
     .withMessage(`Username must be between 3 and 20 characters.`)
     .bail()
     .matches(/^[A-Za-z0-9_]+$/)
-    .withMessage("Username can only contain letters, numbers, and underscores"),
+    .withMessage(
+      "Username can only contain letters, numbers, and underscores.",
+    ),
   asyncHandler(async (req: Request, res: Response) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
@@ -33,4 +43,15 @@ const createUsername = [
   }),
 ]
 
-export { getUsernames, createUsername }
+const deleteUsername = [
+  body("id").toInt().isInt(),
+  asyncHandler(async (req: Request, res: Response) => {
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+      throw new ValidationError(["Invalid username ID."])
+    }
+    await db.deleteUsername(req.body.id)
+    res.success()
+  }),
+]
+export { getUsernames, createUsername, deleteUsername }

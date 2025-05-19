@@ -7,4 +7,6 @@ username.get("/", usernameController.getUsernames)
 
 username.post("/new", usernameController.createUsername)
 
+username.post("/delete", usernameController.deleteUsername)
+
 export default username

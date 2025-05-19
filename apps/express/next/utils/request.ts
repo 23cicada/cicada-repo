@@ -57,11 +57,7 @@ async function fetchRequest<T>(
         throw new Error(result.code)
     }
   } catch (error) {
-    throw new Error(
-      error instanceof Error
-        ? (error.message ?? "UNEXPECTED_CLIENT_ERROR")
-        : "UNEXPECTED_CLIENT_ERROR",
-    )
+    throw new Error((error as Error)?.message ?? "UNEXPECTED_CLIENT_ERROR")
   }
 }
 

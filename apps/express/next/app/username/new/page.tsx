@@ -9,7 +9,7 @@ const NewUsername = () => {
       <label htmlFor="username">Username: </label>
       <input id="username" name="username" placeholder="Username" />
       <button disabled={isPending} type="submit">
-        New
+        {isPending ? "Creating..." : "New"}
       </button>
       {message?.map((error, index) => <p key={index}>{error}</p>)}
     </form>
