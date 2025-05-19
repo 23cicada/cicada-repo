@@ -11,6 +11,7 @@ const NewUsername = () => {
       <button disabled={isPending} type="submit">
         New
       </button>
+      {message?.map((error, index) => <p key={index}>{error}</p>)}
     </form>
   )
 }

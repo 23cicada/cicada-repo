@@ -20,11 +20,11 @@ const app = express()
 
 app.set("views", path.join(import.meta.dirname, "views"))
 app.set("view engine", "ejs")
-app.use(responseEnhancer)
 
 // https://expressjs.com/en/5x/api.html#express.urlencoded
 // 用于解析 application/x-www-form-urlencoded 格式的数据，并将其放入 req.body。
 app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
 app.use(express.static(assetsPath))
 app.use(responseEnhancer)
 

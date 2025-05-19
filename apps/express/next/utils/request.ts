@@ -1,27 +1,31 @@
-interface RequestOptions extends RequestInit {
-  params?: Record<string, string>
-}
+import { ErrorCode } from "@express/errors"
 
-interface SuccessResponse<T> {
+type SuccessResponse<T = unknown> = {
   success: true
   data: T
   code?: never
   errors?: never
 }
 
-interface ErrorResponse<U> {
+type InvalidParametersResponse = {
   success: false
-  code: string
-  errors: U
+  code: ErrorCode.INVALID_PARAMETERS
+  errors: string[]
   data?: never
 }
 
-type ResponseResult<T, U> = SuccessResponse<T> | ErrorResponse<U>
+type ResponseResult<T = unknown> =
+  | SuccessResponse<T>
+  | InvalidParametersResponse
 
-async function fetchRequest<T, U>(
+interface RequestOptions extends RequestInit {
+  params?: Record<string, string>
+}
+
+async function fetchRequest<T>(
   url: string,
   options: RequestOptions = {},
-): Promise<ResponseResult<T, U>> {
+): Promise<ResponseResult<T>> {
   const { params, ...restOptions } = options
 
   let requestUrl = process.env.API_BASE_URL + url
@@ -38,31 +42,39 @@ async function fetchRequest<T, U>(
         ...restOptions.headers,
       },
     })
-    return await response.json()
-  } catch (error) {
-    console.error(error)
-    return {
-      success: false,
-      code: "UNEXPECTED_ERROR",
-      errors: (error instanceof Error ? error.message : String(error)) as U,
+    const result = await response.json()
+    if (response.ok) {
+      return result
     }
+    switch (result.code) {
+      case ErrorCode.INVALID_PARAMETERS:
+        return {
+          success: false,
+          errors: result.errors,
+          code: ErrorCode.INVALID_PARAMETERS,
+        }
+      default:
+        throw new Error(result.code)
+    }
+  } catch (error) {
+    throw new Error(
+      error instanceof Error
+        ? (error.message ?? "UNEXPECTED_CLIENT_ERROR")
+        : "UNEXPECTED_CLIENT_ERROR",
+    )
   }
 }
 
 const request = {
-  get<T, U = unknown>(url: string, options: RequestOptions = {}) {
-    return fetchRequest<T, U>(url, {
+  get<T>(url: string, options: RequestOptions = {}) {
+    return fetchRequest<T>(url, {
       ...options,
       method: "GET",
     })
   },
 
-  post<T, U = unknown>(
-    url: string,
-    data?: unknown,
-    options: RequestOptions = {},
-  ) {
-    return fetchRequest<T, U>(url, {
+  post<T>(url: string, data?: unknown, options: RequestOptions = {}) {
+    return fetchRequest<T>(url, {
       ...options,
       method: "POST",
       body: JSON.stringify(data),
@@ -71,3 +83,4 @@ const request = {
 }
 
 export default request
+export { ErrorCode }
