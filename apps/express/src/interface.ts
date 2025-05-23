@@ -19,4 +19,16 @@ interface UserStorage extends UserInfo {
   id: number
 }
 
-export type { CustomError, UserStorage, UserInfo, UserSearchParams }
+interface MiniMessage {
+  text: string
+  username: string
+  added: Date
+}
+
+export type {
+  CustomError,
+  UserStorage,
+  UserInfo,
+  UserSearchParams,
+  MiniMessage,
+}

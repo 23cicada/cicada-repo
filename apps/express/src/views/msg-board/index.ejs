@@ -8,13 +8,18 @@
   <title>Mini Message Board</title>
 </head>
 <body>
-  <% messages.map((msg, index) => { %>
+  <% messages.map(msg => { %>
     <ul>
-      <li><%= msg.user %> <a href="/msg-board/detail/<%= index%>">Detail</a></li>
+      <li><%= msg.username %> <a href="/views/msg-board/detail/<%= msg.id%>">Detail</a></li>
       <li><%= msg.text %></li>
       <li><%= msg.added %></li>
+      <li>
+        <form method="POST" action="/views/msg-board/delete/<%= msg.id%>">
+          <button>Delete</button>
+        </form>
+      </li>
     </ul>
   <% }) %>
-  <a href="/msg-board/new">New</a>
+  <a href="/views/msg-board/new">New</a>
 </body>
 </html>
