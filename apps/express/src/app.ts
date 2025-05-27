@@ -2,6 +2,9 @@ import "dotenv/config"
 import express from "express"
 import next from "next"
 import path from "node:path"
+import session from "express-session"
+import passport from "passport"
+import LocalStrategy from "passport-local"
 import viewsRouter from "./routes/views/indexRouter.ts"
 import errorHandler from "./controllers/errorController.ts"
 import apiRouter from "./routes/index.ts"
@@ -20,6 +23,9 @@ const app = express()
 
 app.set("views", path.join(import.meta.dirname, "views"))
 app.set("view engine", "ejs")
+
+app.use(session({ secret: "cats", resave: false, saveUninitialized: false }))
+app.use(passport.session())
 
 // https://expressjs.com/en/5x/api.html#express.urlencoded
 // 用于解析 application/x-www-form-urlencoded 格式的数据，并将其放入 req.body。

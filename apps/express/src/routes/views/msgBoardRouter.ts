@@ -4,7 +4,7 @@ import {
   getMessageDetail,
   createMessage,
   deleteMessage,
-} from "#express/controllers/miniMsgCtrl.ts"
+} from "#src/controllers/miniMsgCtrl.ts"
 
 const indexRouter = Router()
 

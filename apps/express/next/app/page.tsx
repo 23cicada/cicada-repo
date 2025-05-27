@@ -8,6 +8,9 @@ const App = () => {
       <li>
         <Link href="/username">Username</Link>
       </li>
+      <li>
+        <Link href="/login/sign-up">Sign Up</Link>
+      </li>
     </ul>
   )
 }
