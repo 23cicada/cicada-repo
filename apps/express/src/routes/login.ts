@@ -1,8 +1,9 @@
 import { Router } from "express"
-import { signUp } from "#src/controllers/loginCtrl.ts"
+import { signUp, login as loginCtrl } from "#src/controllers/loginCtrl.ts"
 
 const login = Router()
 
 login.post("/sign-up", signUp)
+login.post("/", loginCtrl)
 
 export default login

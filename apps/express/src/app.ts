@@ -9,6 +9,7 @@ import viewsRouter from "./routes/views/indexRouter.ts"
 import errorHandler from "./controllers/errorController.ts"
 import apiRouter from "./routes/index.ts"
 import responseEnhancer from "./middlewares/responseEnhancer.ts"
+import * as db from "#src/db/queries/index.ts"
 
 const PORT = parseInt(process.env.PORT || "3001", 10)
 const DEV = process.env.NODE_ENV !== "production"
@@ -24,11 +25,48 @@ const app = express()
 app.set("views", path.join(import.meta.dirname, "views"))
 app.set("view engine", "ejs")
 
+/**
+ * https://www.passportjs.org/concepts/authentication/sessions/
+ */
 app.use(session({ secret: "cats", resave: false, saveUninitialized: false }))
 app.use(passport.session())
 
+// passport.authenticate() => LocalStrategy.Strategy => passport.serializeUser
+passport.serializeUser((user, done) => {
+  done(null, user.id)
+})
+// req.user
+passport.deserializeUser(async (id: number, done) => {
+  try {
+    const user = await db.getUserById(id)
+    done(null, user)
+  } catch (err) {
+    done(err)
+  }
+})
+
+/**
+ * https://www.passportjs.org/concepts/authentication/password/
+ * This function is what will be called when we use the passport.authenticate() function later.
+ */
+passport.use(
+  new LocalStrategy.Strategy(async (username, password, done) => {
+    try {
+      const user = await db.getUserByUsername(username)
+      if (!user) {
+        return done(null, false, { message: "Incorrect username" })
+      }
+      if (user.password !== password) {
+        return done(null, false, { message: "Incorrect password" })
+      }
+      return done(null, user)
+    } catch (err) {
+      return done(err)
+    }
+  }),
+)
+
 // https://expressjs.com/en/5x/api.html#express.urlencoded
-// 用于解析 application/x-www-form-urlencoded 格式的数据，并将其放入 req.body。
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(express.static(assetsPath))

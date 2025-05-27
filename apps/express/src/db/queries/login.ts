@@ -7,4 +7,16 @@ async function insertUser(username: string, password: string) {
   ])
 }
 
-export { insertUser }
+async function getUserByUsername(username: string) {
+  const result = await pool.query("SELECT * FROM users WHERE username = $1", [
+    username,
+  ])
+  return result.rows[0]
+}
+
+async function getUserById(id: number) {
+  const result = await pool.query("SELECT * FROM users WHERE id = $1", [id])
+  return result.rows[0]
+}
+
+export { insertUser, getUserByUsername, getUserById }

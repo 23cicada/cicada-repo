@@ -2,6 +2,7 @@ import asyncHandler from "express-async-handler"
 import * as db from "#src/db/queries/index.ts"
 import { body, validationResult, matchedData } from "express-validator"
 import { ValidationError } from "#src/errors/ValidationError.ts"
+import passport from "passport"
 
 const signUp = [
   body("username")
@@ -34,4 +35,9 @@ const signUp = [
   }),
 ]
 
-export { signUp }
+const login = passport.authenticate("local", {
+  successRedirect: "/",
+  failureRedirect: "/",
+})
+
+export { signUp, login }

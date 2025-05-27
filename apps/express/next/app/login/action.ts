@@ -14,4 +14,12 @@ const signUp = async (prev: string[], formData: FormData) => {
   return errors
 }
 
-export { signUp }
+const login = async (prev: string[], formData: FormData) => {
+  const { success, errors } = await request.post("/login", {
+    username: formData.get("username"),
+    password: formData.get("password"),
+  })
+  return []
+}
+
+export { signUp, login }
