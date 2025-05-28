@@ -9,6 +9,7 @@ import viewsRouter from "./routes/views/indexRouter.ts"
 import errorHandler from "./controllers/errorController.ts"
 import apiRouter from "./routes/index.ts"
 import responseEnhancer from "./middlewares/responseEnhancer.ts"
+import ensureAuthenticated from "./middlewares/ensureAuthenticated.ts"
 import * as db from "#src/db/queries/index.ts"
 
 const PORT = parseInt(process.env.PORT || "3001", 10)
@@ -31,11 +32,9 @@ app.set("view engine", "ejs")
 app.use(session({ secret: "cats", resave: false, saveUninitialized: false }))
 app.use(passport.session())
 
-// passport.authenticate() => LocalStrategy.Strategy => passport.serializeUser
 passport.serializeUser((user, done) => {
   done(null, user.id)
 })
-// req.user
 passport.deserializeUser(async (id: number, done) => {
   try {
     const user = await db.getUserById(id)
@@ -71,6 +70,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(express.static(assetsPath))
 app.use(responseEnhancer)
+app.use(ensureAuthenticated)
 
 nextApp.prepare().then(() => {
   app.get("/", (_, res) => res.render("index", { title: "Home" }))
