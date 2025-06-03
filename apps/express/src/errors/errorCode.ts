@@ -1,13 +1,10 @@
-export enum ErrorCode {
-  INVALID_PARAMETERS = "INVALID_PARAMETERS",
-  INTERNAL_SERVER_ERROR = "INTERNAL_SERVER_ERROR",
-  NOT_FOUND = "NOT_FOUND",
-  UNAUTHORIZED = "UNAUTHORIZED",
-}
+import ErrorCode from "@repo/error-code"
 
-export const ErrorCodeToHttpStatus = {
+const ErrorCodeToHttpStatus = {
   [ErrorCode.INVALID_PARAMETERS]: 400,
   [ErrorCode.INTERNAL_SERVER_ERROR]: 500,
   [ErrorCode.NOT_FOUND]: 404,
   [ErrorCode.UNAUTHORIZED]: 401,
 }
+
+export { ErrorCode, ErrorCodeToHttpStatus }

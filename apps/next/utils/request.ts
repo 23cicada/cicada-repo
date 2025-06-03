@@ -1,4 +1,4 @@
-import { ErrorCode } from "@express/errors"
+import ErrorCode from "@repo/error-code"
 
 type SuccessResponse<T = unknown> = {
   success: true

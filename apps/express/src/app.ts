@@ -1,6 +1,5 @@
 import "dotenv/config"
 import express from "express"
-import next from "next"
 import path from "node:path"
 import session from "express-session"
 import passport from "passport"
@@ -15,11 +14,6 @@ import * as db from "#src/db/queries/index.ts"
 const PORT = parseInt(process.env.PORT || "3001", 10)
 const DEV = process.env.NODE_ENV !== "production"
 const assetsPath = path.join(import.meta.dirname, "public")
-const nextApp = (next as unknown as typeof next.default)({
-  dev: DEV,
-  dir: path.join(import.meta.dirname, "../next"),
-})
-const handle = nextApp.getRequestHandler()
 
 const app = express()
 
@@ -72,18 +66,15 @@ app.use(express.static(assetsPath))
 app.use(responseEnhancer)
 app.use(ensureAuthenticated)
 
-nextApp.prepare().then(() => {
-  app.get("/", (_, res) => res.render("index", { title: "Home" }))
-  app.all("/cicada*", (req, res) => handle(req, res))
-  app.use("/views", viewsRouter)
-  app.use("/api", apiRouter)
-  app.use((_, res) => res.status(404).render("404"))
-  app.use(errorHandler)
-  app.listen(PORT, () => {
-    console.log(
-      `> Server listening at http://localhost:${PORT} as ${
-        DEV ? "development" : process.env.NODE_ENV
-      }`,
-    )
-  })
+app.get("/", (_, res) => res.render("index", { title: "Home" }))
+app.use("/views", viewsRouter)
+app.use("/api", apiRouter)
+app.use((_, res) => res.status(404).render("404"))
+app.use(errorHandler)
+app.listen(PORT, () => {
+  console.log(
+    `> Server listening at http://localhost:${PORT} as ${
+      DEV ? "development" : process.env.NODE_ENV
+    }`,
+  )
 })
