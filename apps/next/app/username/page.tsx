@@ -2,6 +2,7 @@ import Link from "next/link"
 import Form from "next/form"
 import request from "../../utils/request"
 import DeleteButton from "./DeleteButton"
+import api from "@/utils/request2"
 
 const Username = async ({
   searchParams,
@@ -9,10 +10,7 @@ const Username = async ({
   searchParams: Promise<{ search?: string }>
 }) => {
   const search = (await searchParams).search ?? ""
-  const { success, data } = await request.get<
-    { id: string; username: string }[]
-  >("/username", { params: { search } })
-  const usernames = success ? data : []
+  const { data } = await api.queryUsernames(search)
   return (
     <div>
       <Form action="">
@@ -25,7 +23,7 @@ const Username = async ({
         />
       </Form>
       <ul>
-        {usernames?.map(({ id, username }) => (
+        {data?.map(({ id, username }) => (
           <li key={id}>
             {username} <DeleteButton id={id} />
           </li>

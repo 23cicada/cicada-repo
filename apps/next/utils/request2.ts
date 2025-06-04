@@ -1,9 +1,14 @@
 import axios from "axios"
 
 const request = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: process.env.API_BASE_URL,
 })
 
-const test = async () => {
-  const { data } = await request.get<{ name: "string"; age: 80 }>("/api/test")
+const api = {
+  queryUsernames: async (search: string) =>
+    await request.get<{ id: string; username: string }[]>("/username", {
+      params: { search },
+    }),
 }
+
+export default api

@@ -64,7 +64,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(express.static(assetsPath))
 app.use(responseEnhancer)
-app.use(ensureAuthenticated)
+// app.use(ensureAuthenticated)
 
 app.get("/", (_, res) => res.render("index", { title: "Home" }))
 app.use("/views", viewsRouter)
