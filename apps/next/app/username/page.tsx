@@ -9,8 +9,12 @@ const Username = async ({
 }: {
   searchParams: Promise<{ search?: string }>
 }) => {
-  const search = (await searchParams).search ?? ""
-  const { data } = await api.queryUsernames(search)
+  const { search } = await searchParams
+  const {
+    data: { data, success },
+  } = await api.queryUsernames(search)
+  // result.`
+
   return (
     <div>
       <Form action="">
@@ -22,13 +26,13 @@ const Username = async ({
           placeholder="Username"
         />
       </Form>
-      <ul>
+      {/* <ul>
         {data?.map(({ id, username }) => (
           <li key={id}>
             {username} <DeleteButton id={id} />
           </li>
         ))}
-      </ul>
+      </ul> */}
       <Link href="/username/new">New</Link>
     </div>
   )

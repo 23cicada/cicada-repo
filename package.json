@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "build": "turbo build",
-    "dev": "turbo dev",
+    "dev": "turbo dev --filter=@repo/express --filter=@repo/next",
     "lint": "turbo lint",
     "prepare": "husky",
     "prettier": "prettier --ignore-unknown --write **/*",
