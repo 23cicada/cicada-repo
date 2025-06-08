@@ -15,7 +15,7 @@
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
-    "@repo/error-code": "workspace:^",
+    "@repo/types": "workspace:^",
     "@repo/eslint-config": "workspace:^",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",

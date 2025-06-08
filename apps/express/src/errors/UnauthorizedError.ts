@@ -1,9 +1,9 @@
 import AppError from "./AppError.ts"
-import { ErrorCode } from "./errorCode.ts"
+import { ErrorCode } from "@repo/types"
 
 export class UnauthorizedError extends AppError {
-  constructor(errors?: unknown) {
-    super("Unauthorized", ErrorCode.UNAUTHORIZED, errors)
+  constructor(details?: unknown) {
+    super("Unauthorized", ErrorCode.UNAUTHORIZED, details)
     this.name = "UnauthorizedError"
   }
 }

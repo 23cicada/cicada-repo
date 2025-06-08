@@ -4,8 +4,8 @@ declare global {
       id: number
     }
     interface Response {
-      success: <T = unknown>(data?: T, statusCode?: number) => void;
-      error: (code: string, errors?: unknown, statusCode?: number) => void;
+      success: (data?: unknown, options?: { statusCode?: number }) => void
+      error: (error?: unknown, options?: { statusCode?: number }) => void
     }
   }
 }

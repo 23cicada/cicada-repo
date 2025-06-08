@@ -1,5 +1,5 @@
 import asyncHandler from "express-async-handler"
-import ResourceNotFoundError from "../errors/ResourceNotFoundError.ts"
+import { NotFoundError } from "../errors/NotFoundError.ts"
 
 async function getMockAuthorById(authorId: number) {
   const authors = [
@@ -14,7 +14,7 @@ const getAuthorById = asyncHandler(async (req, res) => {
   const { authorId } = req.params
   const author = await getMockAuthorById(Number(authorId))
   if (!author) {
-    throw new ResourceNotFoundError("Author not found")
+    throw new NotFoundError("Author not found")
   }
   res.send(`Author Name: ${author.name}`)
 })

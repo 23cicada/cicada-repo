@@ -1,4 +1,4 @@
-import ErrorCode from "@repo/error-code"
+import { ErrorCode } from "@repo/types"
 
 type SuccessResponse<T = unknown> = {
   success: true

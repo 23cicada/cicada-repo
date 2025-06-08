@@ -10,10 +10,9 @@ const Username = async ({
   searchParams: Promise<{ search?: string }>
 }) => {
   const { search } = await searchParams
-  const {
-    data: { data, success },
-  } = await api.queryUsernames(search)
-  // result.`
+  // const {
+  //   data: { data, success },
+  // } = await api.queryUsernames(search)
 
   return (
     <div>

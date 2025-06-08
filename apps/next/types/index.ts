@@ -1,10 +1,15 @@
 interface ResponseSuccess<T> {
   success: true
   data: T
+  error: never
 }
 interface ResponseError<T> {
   success: false
-  error: T
+  error: {
+    code: string
+    details: T
+    stack: unknown
+  }
   data: never
 }
 

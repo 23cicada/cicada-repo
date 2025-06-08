@@ -1,12 +1,12 @@
 import AppError from "./AppError.ts"
-import { ErrorCode } from "./errorCode.ts"
+import { ErrorCode } from "@repo/types"
 
 export class ValidationError extends AppError {
-  constructor(errors?: unknown) {
+  constructor(details?: unknown) {
     super(
       "Request parameters are malformed or invalid",
       ErrorCode.INVALID_PARAMETERS,
-      errors,
+      details,
     )
     this.name = "ValidationError"
   }

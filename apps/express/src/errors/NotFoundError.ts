@@ -1,9 +1,9 @@
 import AppError from "./AppError.ts"
-import { ErrorCode } from "./errorCode.ts"
+import { ErrorCode } from "@repo/types"
 
 export class NotFoundError extends AppError {
-  constructor(errors?: unknown) {
-    super("The requested resource does not exist", ErrorCode.NOT_FOUND, errors)
+  constructor(details?: unknown) {
+    super("The requested resource does not exist", ErrorCode.NOT_FOUND, details)
     this.name = "NotFoundError"
   }
 }

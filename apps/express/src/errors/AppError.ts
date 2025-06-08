@@ -1,19 +1,26 @@
-import { ErrorCode, ErrorCodeToHttpStatus } from "./errorCode.ts"
+import { ErrorCode } from "@repo/types"
+
+const ErrorCodeToHttpStatus = {
+  [ErrorCode.INVALID_PARAMETERS]: 400,
+  [ErrorCode.INTERNAL_SERVER_ERROR]: 500,
+  [ErrorCode.NOT_FOUND]: 404,
+  [ErrorCode.UNAUTHORIZED]: 401,
+}
 
 class AppError extends Error {
   public statusCode
   public code
-  public errors
+  public details
 
   constructor(
     message: string,
     code: ErrorCode,
-    errors: unknown = null,
+    details: unknown = null,
     statusCode = ErrorCodeToHttpStatus[code],
   ) {
     super(message)
     this.code = code
-    this.errors = errors
+    this.details = details
     this.statusCode = statusCode
     Error.captureStackTrace(this, this.constructor)
   }

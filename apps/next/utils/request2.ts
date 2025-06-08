@@ -16,10 +16,16 @@ request.interceptors.response.use((response) => {
 })
 
 const api = {
-  queryUsernames: async (search?: string) =>
-    await request.get<Response<Username[]>>("/username", {
-      params: { search },
-    }),
+  // queryUsernames: async (search?: string) =>
+  //   await request.get<Response<Username[]>>("/username", {
+  //     params: { search },
+  //   }),
+
+  // queryUsernames: async (search?: string) =>
+  //   await request.request<Response<Username[]>>("/username", {
+  //     params: { search },
+  //   }),
+
   deleteUsername: async (id: string) =>
     await request.post("/username/delete", {
       id,
