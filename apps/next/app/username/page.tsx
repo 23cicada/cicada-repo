@@ -1,8 +1,7 @@
-import Link from "next/link"
-import Form from "next/form"
-import request from "../../utils/request"
-import DeleteButton from "./DeleteButton"
-import api from "@/utils/request2"
+import Link from 'next/link'
+import Form from 'next/form'
+import DeleteButton from './DeleteButton'
+import api from '@/utils/request2'
 
 const Username = async ({
   searchParams,
@@ -10,9 +9,7 @@ const Username = async ({
   searchParams: Promise<{ search?: string }>
 }) => {
   const { search } = await searchParams
-  // const {
-  //   data: { data, success },
-  // } = await api.queryUsernames(search)
+  const { result } = await api.queryUsernames(search)
 
   return (
     <div>
@@ -25,13 +22,13 @@ const Username = async ({
           placeholder="Username"
         />
       </Form>
-      {/* <ul>
-        {data?.map(({ id, username }) => (
+      <ul>
+        {result?.map(({ id, username }) => (
           <li key={id}>
             {username} <DeleteButton id={id} />
           </li>
         ))}
-      </ul> */}
+      </ul>
       <Link href="/username/new">New</Link>
     </div>
   )

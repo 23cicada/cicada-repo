@@ -4,6 +4,8 @@
  */
 const config = {
   semi: false,
+  singleQuote: true,
+  jsxSingleQuote: false
 }
 
 export default config

@@ -1,4 +1,4 @@
-"use client"
+'use client'
 
 export default function GlobalError({
   error,
@@ -9,6 +9,7 @@ export default function GlobalError({
 }) {
   return (
     <html lang="en">
+      <meta name="color-scheme" content="dark" />
       <body suppressHydrationWarning>
         <h2>Something went wrong!</h2>
         <button onClick={() => reset()}>Try again</button>

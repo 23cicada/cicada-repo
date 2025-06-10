@@ -1,22 +1,22 @@
-"use client"
+'use client'
 
-import { useState } from "react"
-import { deleteUsername } from "./action"
+import { useState } from 'react'
+import { deleteUsername } from './action'
 
 const DeleteButton = ({ id }: { id: string }) => {
   const [loading, setLoading] = useState(false)
   const handleDelete = async () => {
-    const ok = confirm("Are you sure you want to delete this username?")
+    const ok = confirm('Are you sure you want to delete this username?')
     if (ok) {
       setLoading(true)
       const errors = await deleteUsername(id)
       setLoading(false)
-      if (errors) alert(errors.join("\n"))
+      // if (errors) alert(errors.join("\n"))
     }
   }
   return (
     <button onClick={() => handleDelete()} disabled={loading}>
-      {loading ? "Deleting..." : "Delete"}
+      {loading ? 'Deleting...' : 'Delete'}
     </button>
   )
 }

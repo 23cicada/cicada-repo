@@ -1,15 +1,14 @@
-"use server"
+'use server'
 
-import request, { ErrorCode } from "@/utils/request"
-import { revalidatePath } from "next/cache"
+import api from '@/utils/request2'
+import { revalidatePath } from 'next/cache'
+import { ErrorCode } from '@repo/types'
 
 export async function deleteUsername(id: string) {
-  const { success, code, errors } = await request.post("/username/delete", {
-    id,
-  })
-  if (success) {
-    revalidatePath("/username")
-  } else if (code === ErrorCode.INVALID_PARAMETERS) {
-    return errors
-  }
+  const test = await api.deleteUsername(id)
+  // if (success) {
+  //   revalidatePath("/username")
+  // } else if (error?.code === ErrorCode.INVALID_PARAMETERS) {
+  //   return error.details
+  // }
 }
