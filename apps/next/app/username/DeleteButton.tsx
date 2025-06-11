@@ -9,13 +9,13 @@ const DeleteButton = ({ id }: { id: string }) => {
     const ok = confirm('Are you sure you want to delete this username?')
     if (ok) {
       setLoading(true)
-      const errors = await deleteUsername(id)
+      const errors = await deleteUsername('9999')
       setLoading(false)
-      // if (errors) alert(errors.join("\n"))
+      if (errors) alert(errors.join('\n'))
     }
   }
   return (
-    <button onClick={() => handleDelete()} disabled={loading}>
+    <button onClick={() => handleDelete()}>
       {loading ? 'Deleting...' : 'Delete'}
     </button>
   )

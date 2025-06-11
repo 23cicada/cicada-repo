@@ -5,10 +5,10 @@ import { revalidatePath } from 'next/cache'
 import { ErrorCode } from '@repo/types'
 
 export async function deleteUsername(id: string) {
-  const test = await api.deleteUsername(id)
-  // if (success) {
-  //   revalidatePath("/username")
-  // } else if (error?.code === ErrorCode.INVALID_PARAMETERS) {
-  //   return error.details
-  // }
+  const { success, error } = await api.deleteUsername(id)
+  if (success) {
+    revalidatePath('/username')
+  } else if (error?.code === ErrorCode.INVALID_PARAMETERS) {
+    return error.details
+  }
 }

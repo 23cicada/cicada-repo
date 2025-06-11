@@ -8,9 +8,9 @@ export default function GlobalError({
   reset: () => void
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <meta name="color-scheme" content="dark" />
-      <body suppressHydrationWarning>
+      <body>
         <h2>Something went wrong!</h2>
         <button onClick={() => reset()}>Try again</button>
       </body>

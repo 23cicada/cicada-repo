@@ -25,7 +25,8 @@ const Username = async ({
       <ul>
         {result?.map(({ id, username }) => (
           <li key={id}>
-            {username} <DeleteButton id={id} />
+            {username}
+            <DeleteButton id={id} />
           </li>
         ))}
       </ul>

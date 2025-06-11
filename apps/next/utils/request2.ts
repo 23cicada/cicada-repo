@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios'
 import type { ServiceResponse, Username } from '@/types'
+import { ErrorCode } from '@repo/types'
 
 const request = axios.create({
   baseURL: process.env.API_BASE_URL,
@@ -12,15 +13,20 @@ request.interceptors.response.use(
       return Object.assign({}, response, {
         result: data.data,
         success: data.success,
-        error: data.error,
       })
     }
     return response
   },
   (error) => {
     if (error.response) {
-      throw new Error('TTTTTTTTTTTTTTTTTTTT')
-      // return Promise.reject('TTTTTTTTTTTTTTTTTTTT')
+      const { data } = error.response
+      console.error('server error', data.error)
+      return Object.assign({}, error.response, {
+        success: data.success,
+        error: data.error,
+      })
+    } else {
+      throw new Error('Uncaught error')
     }
   },
 )
@@ -44,7 +50,7 @@ const api = {
     }),
 
   deleteUsername: async (id: string) =>
-    await service.post<null, string[]>('/username/delete', {}),
+    await service.post<null, string[]>('/username/delete', { id }),
 }
 
 export default api
