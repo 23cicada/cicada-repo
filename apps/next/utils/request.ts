@@ -53,6 +53,12 @@ const api = {
 
   createUsername: async (username: string) =>
     await service.post<string[]>('/username/new', { username }),
+
+  login: async (username: string, password: string) =>
+    await service.post<string[]>('/login', { username, password }),
+
+  signUp: async (username: string, password: string) =>
+    await service.post<string[]>('/login/sign-up', { username, password }),
 }
 
 export default api

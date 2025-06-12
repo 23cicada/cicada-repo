@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Form from 'next/form'
 import DeleteButton from './DeleteButton'
-import api from '@/utils/request2'
+import api from '@/utils/request'
 
 const Username = async ({
   searchParams,
