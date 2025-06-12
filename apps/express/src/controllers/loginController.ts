@@ -1,11 +1,11 @@
-import asyncHandler from "express-async-handler"
-import * as db from "#src/db/queries/index.ts"
-import { body, validationResult, matchedData } from "express-validator"
-import { ValidationError } from "#src/errors/ValidationError.ts"
-import passport from "passport"
+import asyncHandler from 'express-async-handler'
+import * as db from '#src/db/queries/index.ts'
+import { body, validationResult, matchedData } from 'express-validator'
+import { ValidationError } from '#src/errors/ValidationError.ts'
+import passport from 'passport'
 
 const signUp = [
-  body("username")
+  body('username')
     .trim()
     .notEmpty()
     .withMessage(`Username is required.`)
@@ -15,9 +15,9 @@ const signUp = [
     .bail()
     .matches(/^[A-Za-z0-9_]+$/)
     .withMessage(
-      "Username can only contain letters, numbers, and underscores.",
+      'Username can only contain letters, numbers, and underscores.',
     ),
-  body("password")
+  body('password')
     .trim()
     .notEmpty()
     .withMessage(`Password is required.`)
@@ -35,9 +35,9 @@ const signUp = [
   }),
 ]
 
-const login = passport.authenticate("local", {
-  successRedirect: "/",
-  failureRedirect: "/",
+const login = passport.authenticate('local', {
+  successRedirect: '/',
+  failureRedirect: '/',
 })
 
 export { signUp, login }

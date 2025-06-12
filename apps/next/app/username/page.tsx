@@ -13,7 +13,7 @@ const Username = async ({
 
   return (
     <div>
-      <Form action="">
+      <Form action="/username">
         <label htmlFor="username">Username: </label>
         <input
           defaultValue={search}

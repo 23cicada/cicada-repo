@@ -9,7 +9,7 @@ const DeleteButton = ({ id }: { id: string }) => {
     const ok = confirm('Are you sure you want to delete this username?')
     if (ok) {
       setLoading(true)
-      const errors = await deleteUsername('9999')
+      const errors = await deleteUsername(id)
       setLoading(false)
       if (errors) alert(errors.join('\n'))
     }
