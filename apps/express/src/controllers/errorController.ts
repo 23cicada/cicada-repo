@@ -9,6 +9,7 @@ const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
   if (err instanceof AppError) {
     return res.error({
       code: err.code,
+      message: err.message,
       details: err.details,
       statusCode: err.statusCode,
       stack,

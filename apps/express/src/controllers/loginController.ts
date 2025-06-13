@@ -41,7 +41,7 @@ const login = asyncHandler((req, res, next) => {
   const callback: AuthenticateCallback = (err, user, info) => {
     if (err) next(err)
     if (!user) {
-      next(new UnauthorizedError(info))
+      next(new UnauthorizedError())
     }
   }
   passport.authenticate('local', callback)(req, res, next)
