@@ -38,12 +38,13 @@ const signUp = [
 ]
 
 const login = asyncHandler((req, res, next) => {
-  passport.authenticate('local', (err: unknown, user: Express.User | false) => {
+  const callback: AuthenticateCallback = (err, user, info) => {
     if (err) next(err)
     if (!user) {
-      next(new UnauthorizedError())
+      next(new UnauthorizedError(info))
     }
-  })(req, res, next)
+  }
+  passport.authenticate('local', callback)(req, res, next)
 })
 
 export { signUp, login }

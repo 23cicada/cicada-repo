@@ -45,11 +45,8 @@ passport.use(
   new LocalStrategy.Strategy(async (username, password, done) => {
     try {
       const user = await db.getUserByUsername(username)
-      if (!user) {
-        return done(null, false, { message: 'Incorrect username' })
-      }
-      if (user.password !== password) {
-        return done(null, false, { message: 'Incorrect password' })
+      if (!user || user.password !== password) {
+        return done(null, false, { message: 'Incorrect username or password' })
       }
       return done(null, user)
     } catch (err) {
