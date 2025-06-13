@@ -7,8 +7,9 @@ const request = axios.create({
 
 request.interceptors.response.use(
   (response) => {
-    const { data } = response
-    if ('success' in data) {
+    const { data, headers } = response
+    const contentType = headers['Content-Type'] as string
+    if (contentType?.includes('application/json') && 'success' in data) {
       return Object.assign({}, response, {
         result: data.data,
         success: data.success,
@@ -31,15 +32,15 @@ request.interceptors.response.use(
 )
 
 const service = {
-  get: <T = unknown, D = unknown>(
+  get: <T = unknown, u = unknown, D = unknown>(
     url: string,
     config?: AxiosRequestConfig<D>,
-  ) => request.get<unknown, ServiceResponse<T, unknown>, D>(url, config),
-  post: <U = unknown, D = unknown>(
+  ) => request.get<unknown, ServiceResponse<T, u>, D>(url, config),
+  post: <T = unknown, U = unknown, D = unknown>(
     url: string,
     data?: D,
     config?: AxiosRequestConfig<D>,
-  ) => request.post<unknown, ServiceResponse<unknown, U>, D>(url, data, config),
+  ) => request.post<unknown, ServiceResponse<T, U>, D>(url, data, config),
 }
 
 const api = {
@@ -49,16 +50,19 @@ const api = {
     }),
 
   deleteUsername: async (id: string) =>
-    await service.post<string[]>('/username/delete', { id }),
+    await service.post<null, string[]>('/username/delete', { id }),
 
   createUsername: async (username: string) =>
-    await service.post<string[]>('/username/new', { username }),
+    await service.post<null, string[]>('/username/new', { username }),
 
   login: async (username: string, password: string) =>
-    await service.post<string[]>('/login', { username, password }),
+    await service.post<null, string[]>('/login', { username, password }),
 
   signUp: async (username: string, password: string) =>
-    await service.post<string[]>('/login/sign-up', { username, password }),
+    await service.post<null, string[]>('/login/sign-up', {
+      username,
+      password,
+    }),
 }
 
 export default api

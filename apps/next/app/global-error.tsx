@@ -12,6 +12,7 @@ export default function GlobalError({
       <meta name="color-scheme" content="dark" />
       <body>
         <h2>Something went wrong!</h2>
+        <p>{error.message}</p>
         <button onClick={() => reset()}>Try again</button>
       </body>
     </html>

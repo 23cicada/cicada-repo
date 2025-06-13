@@ -38,6 +38,7 @@ passport.deserializeUser(async (id: number, done) => {
 
 /**
  * https://www.passportjs.org/concepts/authentication/password/
+ * https://github.com/jwalton/passport-api-docs
  * This function is what will be called when we use the passport.authenticate() function later.
  */
 passport.use(

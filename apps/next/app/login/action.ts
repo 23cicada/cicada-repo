@@ -4,6 +4,9 @@ import api from '@/utils/request'
 import { redirect } from 'next/navigation'
 import { ErrorCode } from '@repo/types'
 
+const assertString = (formData: FormData, key: string) =>
+  formData.get(key) as string
+
 const signUp = async (prev: unknown, formData: FormData) => {
   // const username = formData.get("username") as string
   // const password = formData.get("password") as string
@@ -15,8 +18,8 @@ const signUp = async (prev: unknown, formData: FormData) => {
 }
 
 const login = async (prev: unknown, formData: FormData) => {
-  const username = formData.get('username') as string
-  const password = formData.get('password') as string
+  const username = assertString(formData, 'username')
+  const password = assertString(formData, 'password')
   const { success, error } = await api.login(username, password)
   if (success) {
     redirect('/')

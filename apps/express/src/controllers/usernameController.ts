@@ -9,7 +9,7 @@ const getUsernames = [
     .trim()
     .notEmpty()
     .matches(/^[A-Za-z0-9_]+$/),
-  asyncHandler(async (req: Request, res: Response) => {
+  asyncHandler(async (req, res) => {
     const search = validationResult(req).isEmpty()
       ? matchedData(req).search
       : undefined
@@ -31,7 +31,7 @@ const createUsername = [
     .withMessage(
       'Username can only contain letters, numbers, and underscores.',
     ),
-  asyncHandler(async (req: Request, res: Response) => {
+  asyncHandler(async (req, res) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
       throw new ValidationError(errors.array().map((error) => error.msg))
@@ -45,7 +45,7 @@ const createUsername = [
 
 const deleteUsername = [
   body('id').toInt().isInt(),
-  asyncHandler(async (req: Request, res: Response) => {
+  asyncHandler(async (req, res) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
       throw new ValidationError(['Invalid username ID.'])

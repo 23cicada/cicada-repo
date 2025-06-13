@@ -9,6 +9,7 @@ const Page = () => {
       <h1>Login</h1>
       <label htmlFor="username">Username</label>
       <input id="username" name="username" placeholder="username" type="text" />
+      <br />
       <label htmlFor="password">Password</label>
       <input id="password" name="password" type="password" />
       <button type="submit" disabled={isPending}>

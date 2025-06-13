@@ -2,7 +2,9 @@ import asyncHandler from 'express-async-handler'
 import * as db from '#src/db/queries/index.ts'
 import { body, validationResult, matchedData } from 'express-validator'
 import { ValidationError } from '#src/errors/ValidationError.ts'
-import passport from 'passport'
+import passport, { type AuthenticateCallback } from 'passport'
+import type { Request, Response, NextFunction } from 'express'
+import { UnauthorizedError } from '#src/errors/UnauthorizedError.ts'
 
 const signUp = [
   body('username')
@@ -35,9 +37,13 @@ const signUp = [
   }),
 ]
 
-const login = passport.authenticate('local', {
-  successRedirect: '/',
-  failureRedirect: '/',
+const login = asyncHandler((req, res, next) => {
+  passport.authenticate('local', (err: unknown, user: Express.User | false) => {
+    if (err) next(err)
+    if (!user) {
+      next(new UnauthorizedError())
+    }
+  })(req, res, next)
 })
 
 export { signUp, login }
