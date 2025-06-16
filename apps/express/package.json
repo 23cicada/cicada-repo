@@ -4,7 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "node --inspect=9228 --experimental-strip-types --experimental-transform-types --disable-warning=ExperimentalWarning --watch ./src/app.ts",
+    "dev": "node --experimental-strip-types --experimental-transform-types --disable-warning=ExperimentalWarning --watch ./src/app.ts",
+    "debug": "node --inspect=9228 --experimental-strip-types --experimental-transform-types --disable-warning=ExperimentalWarning --watch ./src/app.ts",
     "lint": "pnpm eslint"
   },
   "devDependencies": {

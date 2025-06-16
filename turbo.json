@@ -1,9 +1,13 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "ui": "tui",
+  "ui": "stream",
   "globalEnv": ["PORT", "NODE_ENV", "BASE", "API_BASE_URL", "DATABASE_URL"],
   "tasks": {
     "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "debug": {
       "cache": false,
       "persistent": true
     }
