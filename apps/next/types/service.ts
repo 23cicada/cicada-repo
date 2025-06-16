@@ -3,6 +3,7 @@ import type { AxiosResponse } from 'axios'
 interface DataInSuccess<T> {
   success: true
   result: T
+  message: string
 }
 
 interface DataInError<T> {
@@ -10,6 +11,7 @@ interface DataInError<T> {
   error: {
     code: string
     details: T
+    message: string
   }
 }
 

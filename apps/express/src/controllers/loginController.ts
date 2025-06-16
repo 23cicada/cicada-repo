@@ -3,8 +3,8 @@ import * as db from '#src/db/queries/index.ts'
 import { body, validationResult, matchedData } from 'express-validator'
 import { ValidationError } from '#src/errors/ValidationError.ts'
 import passport, { type AuthenticateCallback } from 'passport'
-import type { Request, Response, NextFunction } from 'express'
-import { UnauthorizedError } from '#src/errors/UnauthorizedError.ts'
+import type { Handler } from 'express'
+import { AuthenticateError } from '#src/errors/AuthenticateError.ts'
 
 const signUp = [
   body('username')
@@ -37,14 +37,29 @@ const signUp = [
   }),
 ]
 
-const login = asyncHandler((req, res, next) => {
-  const callback: AuthenticateCallback = (err, user, info) => {
-    if (err) next(err)
-    if (!user) {
-      next(new UnauthorizedError())
+const login: Handler = (req, res, next) => {
+  const callback: AuthenticateCallback = (error, user, info) => {
+    if (error) {
+      return next(new AuthenticateError(error.message))
     }
+    if (!user) {
+      const message = (info as { message: string }).message
+      return next(new AuthenticateError(message))
+    }
+
+    req.login(user, (error) => {
+      if (error) {
+        return next(new AuthenticateError(error?.message ?? 'Unknown error'))
+      }
+      res.success()
+    })
   }
   passport.authenticate('local', callback)(req, res, next)
-})
+}
 
-export { signUp, login }
+const logout: Handler = (req, res, next) => {
+  // req.logOut()
+  // res.success()
+}
+
+export { signUp, login, logout }

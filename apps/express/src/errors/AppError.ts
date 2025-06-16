@@ -1,10 +1,11 @@
-import { ErrorCode } from "@repo/types"
+import { ErrorCode } from '@repo/types'
 
 const ErrorCodeToHttpStatus = {
   [ErrorCode.INVALID_PARAMETERS]: 400,
   [ErrorCode.INTERNAL_SERVER_ERROR]: 500,
   [ErrorCode.NOT_FOUND]: 404,
   [ErrorCode.UNAUTHORIZED]: 401,
+  [ErrorCode.AUTHENTICATE_FAILED]: 401,
 }
 
 class AppError extends Error {

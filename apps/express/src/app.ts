@@ -10,6 +10,7 @@ import apiRouter from './routes/index.ts'
 import responseEnhancer from './middlewares/responseEnhancer.ts'
 import ensureAuthenticated from './middlewares/ensureAuthenticated.ts'
 import * as db from './db/queries/index.ts'
+import cors from 'cors'
 
 const PORT = parseInt(process.env.PORT || '3001', 10)
 const DEV = process.env.NODE_ENV !== 'production'
@@ -19,6 +20,15 @@ const app = express()
 
 app.set('views', path.join(import.meta.dirname, 'views'))
 app.set('view engine', 'ejs')
+
+if (DEV) {
+  app.use(
+    cors({
+      credentials: true,
+      origin: 'http://localhost:8080',
+    }),
+  )
+}
 
 /**
  * https://www.passportjs.org/concepts/authentication/sessions/
@@ -60,7 +70,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(express.static(assetsPath))
 app.use(responseEnhancer)
-// app.use(ensureAuthenticated)
+app.use(ensureAuthenticated)
 
 app.get('/', (_, res) => res.render('index', { title: 'Home' }))
 app.use('/views', viewsRouter)

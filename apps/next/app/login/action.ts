@@ -3,6 +3,7 @@
 import api from '@/utils/request'
 import { redirect } from 'next/navigation'
 import { ErrorCode } from '@repo/types'
+import { cookies } from 'next/headers'
 
 const assertString = (formData: FormData, key: string) =>
   formData.get(key) as string
@@ -23,10 +24,9 @@ const login = async (prev: unknown, formData: FormData) => {
   const { success, error } = await api.login(username, password)
   if (success) {
     redirect('/')
-  } else if (error.code === ErrorCode.INVALID_PARAMETERS) {
-    return error.details
+  } else {
+    return error.message
   }
-  return ['unknown error']
 }
 
 export { signUp, login }
