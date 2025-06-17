@@ -15,7 +15,7 @@ class AppError extends Error {
 
   constructor(
     message: string,
-    code: ErrorCode,
+    code: ErrorCode = ErrorCode.INTERNAL_SERVER_ERROR,
     details: unknown = null,
     statusCode = ErrorCodeToHttpStatus[code],
   ) {

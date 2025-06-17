@@ -12,7 +12,7 @@ import ensureAuthenticated from './middlewares/ensureAuthenticated.ts'
 import * as db from './db/queries/index.ts'
 import cors from 'cors'
 
-const PORT = parseInt(process.env.PORT || '3001', 10)
+const PORT = parseInt(process.env.PORT ?? '3001', 10)
 const DEV = process.env.NODE_ENV !== 'production'
 const assetsPath = path.join(import.meta.dirname, 'public')
 

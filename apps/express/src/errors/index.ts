@@ -1,3 +1,5 @@
-export * from "./ValidationError.ts"
-export * from "./NotFoundError.ts"
-export * from "./UnauthorizedError.ts"
+export * from './ValidationError.ts'
+export * from './NotFoundError.ts'
+export * from './UnauthorizedError.ts'
+export { default as AppError } from './AppError.ts'
+export { ErrorCode } from '@repo/types'

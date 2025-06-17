@@ -4,7 +4,7 @@ import { body, validationResult, matchedData } from 'express-validator'
 import { ValidationError } from '#src/errors/ValidationError.ts'
 import passport, { type AuthenticateCallback } from 'passport'
 import type { Handler } from 'express'
-import { AuthenticateError } from '#src/errors/AuthenticateError.ts'
+import { AppError, ErrorCode } from '#src/errors/index.ts'
 
 const signUp = [
   body('username')
@@ -29,7 +29,8 @@ const signUp = [
   asyncHandler(async (req, res) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
-      throw new ValidationError(errors.array().map((error) => error.msg))
+      const details = errors.array().map((error) => error.msg)
+      throw new ValidationError(details?.[0], errors.array())
     }
     const { username, password } = matchedData(req)
     await db.insertUser(username, password)
@@ -38,28 +39,34 @@ const signUp = [
 ]
 
 const login: Handler = (req, res, next) => {
-  const callback: AuthenticateCallback = (error, user, info) => {
-    if (error) {
-      return next(new AuthenticateError(error.message))
-    }
-    if (!user) {
-      const message = (info as { message: string }).message
-      return next(new AuthenticateError(message))
-    }
+  const nextWithError = (error: unknown) =>
+    next(
+      new AppError(
+        (error as { message: string })?.message,
+        ErrorCode.AUTHENTICATE_FAILED,
+      ),
+    )
 
+  passport.authenticate('local', ((error, user, info) => {
+    if (error || !user) {
+      return nextWithError(error || info)
+    }
     req.login(user, (error) => {
       if (error) {
-        return next(new AuthenticateError(error?.message ?? 'Unknown error'))
+        return nextWithError(error)
       }
       res.success()
     })
-  }
-  passport.authenticate('local', callback)(req, res, next)
+  }) as AuthenticateCallback)(req, res, next)
 }
 
-const logout: Handler = (req, res, next) => {
-  // req.logOut()
-  // res.success()
+const logout: Handler = (req, res) => {
+  req.logOut((error) => {
+    if (error) {
+      new AppError(error.message)
+    }
+    res.success()
+  })
 }
 
 export { signUp, login, logout }

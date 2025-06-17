@@ -34,7 +34,8 @@ const createUsername = [
   asyncHandler(async (req, res) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
-      throw new ValidationError(errors.array().map((error) => error.msg))
+      const details = errors.array().map((error) => error.msg)
+      throw new ValidationError(details?.[0], details)
     }
 
     const { username } = req.body
@@ -48,7 +49,7 @@ const deleteUsername = [
   asyncHandler(async (req, res) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
-      throw new ValidationError(['Invalid username ID.'])
+      throw new ValidationError('Invalid username ID')
     }
     const result = await db.deleteUsername(req.body.id)
     res.success()
