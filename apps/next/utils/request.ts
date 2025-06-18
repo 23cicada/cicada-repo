@@ -5,9 +5,23 @@ import { redirect } from 'next/navigation'
 
 const request = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
-  withCredentials: true,
 })
-
+request.interceptors.request.use(async (config) => {
+  if (typeof window !== 'undefined') {
+    return {
+      ...config,
+      withCredentials: true,
+    }
+  } else {
+    const { cookies } = await import('next/headers')
+    const cookieStore = await cookies()
+    const { name, value } = cookieStore.get('connect.sid') ?? {}
+    if (name && value) {
+      config.headers.Cookie = `${name}=${value}`
+    }
+    return config
+  }
+})
 request.interceptors.response.use(
   (response) => {
     const { data, headers } = response

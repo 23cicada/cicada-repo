@@ -4,6 +4,7 @@ import type { NextRequest } from 'next/server'
 const publicPaths = ['/login', '/login/sign-up']
 
 export function middleware(request: NextRequest) {
+  return NextResponse.next()
   const { pathname } = request.nextUrl
   const token = request.cookies.get('connect.sid')?.value
   const isPublicPath = publicPaths.some((path) => pathname.startsWith(path))

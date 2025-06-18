@@ -36,7 +36,9 @@ if (DEV) {
 app.use(session({ secret: 'cats', resave: false, saveUninitialized: false }))
 app.use(passport.session())
 
-passport.serializeUser((user, done) => done(null, user.id))
+passport.serializeUser((user, done) => {
+  done(null, user.id)
+})
 passport.deserializeUser(async (id: number, done) => {
   try {
     const user = await db.getUserById(id)

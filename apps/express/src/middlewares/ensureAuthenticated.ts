@@ -6,10 +6,12 @@ const ensureAuthenticated = (
   res: Response,
   next: NextFunction,
 ) => {
-  if (!req?.isAuthenticated() && !req.path.includes('/api/login')) {
-    throw new UnauthorizedError()
-  }
+  const t = req.isAuthenticated?.()
   next()
+  // if (req.path.includes('/api/login') || req.isAuthenticated?.()) {
+  //   return next()
+  // }
+  // throw new UnauthorizedError()
 }
 
 export default ensureAuthenticated

@@ -51,6 +51,7 @@ const login: Handler = (req, res, next) => {
     if (error || !user) {
       return nextWithError(error || info)
     }
+    console.log('user', user)
     req.login(user, (error) => {
       if (error) {
         return nextWithError(error)
