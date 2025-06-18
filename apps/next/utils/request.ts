@@ -39,7 +39,7 @@ request.interceptors.response.use(
       const { data } = error.response
       console.error('SERVER_ERROR', data)
       if (data.error?.code === ErrorCode.UNAUTHORIZED) {
-        redirect('/login')
+        redirect('/api')
       } else {
         return Object.assign({}, error.response, {
           success: data.success,
