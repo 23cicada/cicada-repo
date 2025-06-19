@@ -2,6 +2,7 @@ import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
 export async function GET() {
-  ;(await cookies()).delete('connect.sid')
-  redirect('/login')
+  const cookieStore = await cookies()
+  cookieStore.delete('connect.sid')
+  redirect('/')
 }

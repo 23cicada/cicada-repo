@@ -3,26 +3,22 @@ import type { ServiceResponse, Username } from '@/types'
 import { ErrorCode } from '@repo/types'
 import { redirect } from 'next/navigation'
 
-const request = axios.create({
+const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
+  withCredentials: true,
 })
-request.interceptors.request.use(async (config) => {
-  if (typeof window !== 'undefined') {
-    return {
-      ...config,
-      withCredentials: true,
-    }
-  } else {
+axiosInstance.interceptors.request.use(async (config) => {
+  if (typeof window === 'undefined' && config.withCredentials) {
     const { cookies } = await import('next/headers')
     const cookieStore = await cookies()
     const { name, value } = cookieStore.get('connect.sid') ?? {}
     if (name && value) {
       config.headers.Cookie = `${name}=${value}`
     }
-    return config
   }
+  return config
 })
-request.interceptors.response.use(
+axiosInstance.interceptors.response.use(
   (response) => {
     const { data, headers } = response
     const contentType = headers['content-type'] as string
@@ -39,7 +35,7 @@ request.interceptors.response.use(
       const { data } = error.response
       console.error('SERVER_ERROR', data)
       if (data.error?.code === ErrorCode.UNAUTHORIZED) {
-        redirect('/api')
+        redirect('/api/logout')
       } else {
         return Object.assign({}, error.response, {
           success: data.success,
@@ -63,12 +59,12 @@ const service = {
   get: <T = unknown, u = unknown, D = unknown>(
     url: string,
     config?: AxiosRequestConfig<D>,
-  ) => request.get<unknown, ServiceResponse<T, u>, D>(url, config),
+  ) => axiosInstance.get<unknown, ServiceResponse<T, u>, D>(url, config),
   post: <T = unknown, U = unknown, D = unknown>(
     url: string,
     data?: D,
     config?: AxiosRequestConfig<D>,
-  ) => request.post<unknown, ServiceResponse<T, U>, D>(url, data, config),
+  ) => axiosInstance.post<unknown, ServiceResponse<T, U>, D>(url, data, config),
 }
 
 const api = {
@@ -91,6 +87,8 @@ const api = {
       username,
       password,
     }),
+
+  logout: async () => await service.get<null, string>('/login/logout'),
 }
 
 export default api

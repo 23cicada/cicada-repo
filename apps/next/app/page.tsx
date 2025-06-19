@@ -6,7 +6,7 @@ import { redirect } from 'next/navigation'
 const App = () => {
   return (
     <>
-      <button onClick={() => redirect('/api')}>Log out</button>
+      <button onClick={() => redirect('/api/logout')}>Log out</button>
       <ul>
         <li>
           <Link href="/username">Username</Link>

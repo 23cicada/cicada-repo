@@ -2,11 +2,9 @@
 
 import api from '@/utils/request'
 import { redirect } from 'next/navigation'
-import { ErrorCode } from '@repo/types'
 import { cookies } from 'next/headers'
-
-const assertString = (formData: FormData, key: string) =>
-  formData.get(key) as string
+import { AxiosHeaders } from 'axios'
+import cookieParser from 'set-cookie-parser'
 
 const signUp = async (prev: unknown, formData: FormData) => {
   // const username = formData.get("username") as string
@@ -18,12 +16,22 @@ const signUp = async (prev: unknown, formData: FormData) => {
   // return error
 }
 
-const login = async (prev: unknown, formData: FormData) => {
-  const username = assertString(formData, 'username')
-  const password = assertString(formData, 'password')
-  const { success, error } = await api.login(username, password)
+const login = async (redirectUrl: string, prev: string, formData: FormData) => {
+  const username = formData.get('username') as string
+  const password = formData.get('password') as string
+  const { success, error, headers } = await api.login(username, password)
   if (success) {
-    redirect('/')
+    const cookieStore = await cookies()
+    const cookieList = cookieParser.parse(
+      (headers as AxiosHeaders).getSetCookie(),
+    )
+    for (const cookie of cookieList) {
+      cookieStore.set({
+        ...cookie,
+        sameSite: cookie.sameSite as 'lax' | 'strict' | 'none' | undefined,
+      })
+    }
+    redirect(redirectUrl)
   } else {
     return error.message
   }
