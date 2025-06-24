@@ -9,7 +9,7 @@ const Page = ({ searchParams }: PageProps) => {
   const { redirect } = use(searchParams)
   const [errorMessage, formAction, isPending] = useActionState(
     login.bind(null, redirect ?? '/'),
-    '',
+    null,
   )
   return (
     <form action={formAction}>

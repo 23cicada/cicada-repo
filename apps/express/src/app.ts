@@ -4,7 +4,6 @@ import path from 'node:path'
 import session from 'express-session'
 import passport from 'passport'
 import LocalStrategy from 'passport-local'
-import viewsRouter from './routes/views/indexRouter.ts'
 import errorHandler from './controllers/errorController.ts'
 import apiRouter from './routes/index.ts'
 import responseEnhancer from './middlewares/responseEnhancer.ts'
@@ -74,8 +73,6 @@ app.use(express.static(assetsPath))
 app.use(responseEnhancer)
 app.use(ensureAuthenticated)
 
-app.get('/', (_, res) => res.render('index', { title: 'Home' }))
-app.use('/views', viewsRouter)
 app.use('/api', apiRouter)
 app.use((_, res) => res.status(404).render('404'))
 app.use(errorHandler)

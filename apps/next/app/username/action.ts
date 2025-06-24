@@ -1,6 +1,6 @@
 'use server'
 
-import api from '@/utils/request'
+import api from '@/utils/api'
 import { revalidatePath } from 'next/cache'
 import { ErrorCode } from '@repo/types'
 import { redirect } from 'next/navigation'

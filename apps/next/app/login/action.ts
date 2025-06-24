@@ -1,40 +1,46 @@
 'use server'
 
-import api from '@/utils/request'
+import api from '@/utils/api'
 import { redirect } from 'next/navigation'
 import { cookies } from 'next/headers'
 import { AxiosHeaders } from 'axios'
 import cookieParser from 'set-cookie-parser'
 
-const signUp = async (prev: unknown, formData: FormData) => {
-  // const username = formData.get("username") as string
-  // const password = formData.get("password") as string
-  // const { success, error } = await api.signUp(username, password)
-  // if (success) {
-  //   redirect("/login")
-  // }
-  // return error
+const setCookie = async (headers: AxiosHeaders) => {
+  const cookieStore = await cookies()
+  cookieParser(headers.getSetCookie()).forEach(({ sameSite, ...cookie }) => {
+    cookieStore.set({
+      ...cookie,
+      sameSite: sameSite as 'lax' | 'strict' | 'none',
+    })
+  })
 }
 
-const login = async (redirectUrl: string, prev: string, formData: FormData) => {
+const signUp = async (prev: string | null, formData: FormData) => {
   const username = formData.get('username') as string
   const password = formData.get('password') as string
-  const { success, error, headers } = await api.login(username, password)
+  const { success, error, headers } = await api.signUp(username, password)
   if (success) {
-    const cookieStore = await cookies()
-    const cookieList = cookieParser.parse(
-      (headers as AxiosHeaders).getSetCookie(),
-    )
-    for (const cookie of cookieList) {
-      cookieStore.set({
-        ...cookie,
-        sameSite: cookie.sameSite as 'lax' | 'strict' | 'none' | undefined,
-      })
-    }
-    redirect(redirectUrl)
+    await setCookie(headers as AxiosHeaders)
+    redirect('/')
   } else {
     return error.message
   }
 }
 
+const login = async (
+  redirectUrl: string,
+  prev: string | null,
+  formData: FormData,
+) => {
+  const username = formData.get('username') as string
+  const password = formData.get('password') as string
+  const { success, error, headers } = await api.login(username, password)
+  if (success) {
+    await setCookie(headers as AxiosHeaders)
+    redirect(redirectUrl)
+  } else {
+    return error.message
+  }
+}
 export { signUp, login }

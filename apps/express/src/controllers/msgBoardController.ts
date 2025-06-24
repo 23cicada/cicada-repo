@@ -5,7 +5,7 @@ import { ValidationError } from '../errors/ValidationError.ts'
 
 const getMessages = asyncHandler(async (req, res) => {
   const messages = await db.getMessages()
-  res.render('msg-board', { messages })
+  res.success(messages)
 })
 
 const getMessageDetail = [
@@ -17,7 +17,7 @@ const getMessageDetail = [
       throw new ValidationError(details?.[0], details)
     }
     const message = await db.getMessage(req.params.id!)
-    res.render('msg-board/detail', { message })
+    res.success(message)
   }),
 ]
 
@@ -33,22 +33,18 @@ const createMessage = [
   asyncHandler(async (req, res) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
-      res.render('msg-board/form', {
-        errors: errors.array().map((error) => error.msg),
-      })
-      return
+      const details = errors.array().map((error) => error.msg)
+      throw new ValidationError(details?.[0], details)
     }
     const { text, username } = matchedData(req)
     await db.insertMessage({ text, username })
-    res.redirect('/views/msg-board')
+    res.success()
   }),
 ]
 
-const deleteMessage = [
-  param('id').notEmpty().withMessage('ID is required'),
-  asyncHandler(async (req, res) => {
-    await db.deleteMessage(req.params.id!)
-    res.redirect('/views/msg-board')
-  }),
-]
+const deleteMessage = asyncHandler(async (req, res) => {
+  await db.deleteMessage(req.params.id!)
+  res.success()
+})
+
 export { getMessages, getMessageDetail, createMessage, deleteMessage }

@@ -18,6 +18,7 @@ const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
 
   return res.error({
     code: ErrorCode.INTERNAL_SERVER_ERROR,
+    message: 'Internal Server Error',
     details: err,
     statusCode: 500,
     stack,

@@ -1,21 +1,21 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
-const publicPaths = ['/login', '/login/sign-up']
-
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
-  const token = request.cookies.get('connect.sid')?.value
-  const isPublicPath = publicPaths.some((path) => pathname.startsWith(path))
+  const token = request.cookies.get(process.env.COOKIE_NAME!)?.value
+  const publicPaths = ['/', '/login', '/login/sign-up']
 
-  if (token && isPublicPath) {
-    return NextResponse.redirect(new URL('/', request.url))
-  }
-
-  if (!token && !isPublicPath && pathname !== '/') {
-    const loginUrl = new URL('/login', request.url)
-    loginUrl.searchParams.set('redirect', pathname)
-    return NextResponse.redirect(loginUrl)
+  if (token) {
+    if (pathname === '/login') {
+      return NextResponse.redirect(new URL('/', request.url))
+    }
+  } else {
+    if (!publicPaths.includes(pathname)) {
+      const loginUrl = new URL('/login', request.url)
+      loginUrl.searchParams.set('redirect', pathname)
+      return NextResponse.redirect(loginUrl)
+    }
   }
 
   return NextResponse.next()

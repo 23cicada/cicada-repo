@@ -3,5 +3,11 @@ interface Username {
   username: string
 }
 
-export type { Username }
+type MessageBoardEntry = {
+  username: string
+  text: string
+  id: string
+}
+
+export type { Username, MessageBoardEntry }
 export * from './service'

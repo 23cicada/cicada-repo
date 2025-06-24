@@ -55,7 +55,7 @@ axiosInstance.interceptors.response.use(
   },
 )
 
-const service = {
+export const service = {
   get: <T = unknown, u = unknown, D = unknown>(
     url: string,
     config?: AxiosRequestConfig<D>,
@@ -66,29 +66,3 @@ const service = {
     config?: AxiosRequestConfig<D>,
   ) => axiosInstance.post<unknown, ServiceResponse<T, U>, D>(url, data, config),
 }
-
-const api = {
-  queryUsernames: async (search?: string) =>
-    await service.get<Username[]>('/username', {
-      params: { search },
-    }),
-
-  deleteUsername: async (id: string) =>
-    await service.post<null, string[]>('/username/delete', { id }),
-
-  createUsername: async (username: string) =>
-    await service.post<null, string[]>('/username/new', { username }),
-
-  login: async (username: string, password: string) =>
-    await service.post<null, string>('/login', { username, password }),
-
-  signUp: async (username: string, password: string) =>
-    await service.post<null, string[]>('/login/sign-up', {
-      username,
-      password,
-    }),
-
-  logout: async () => await service.get<null, string>('/login/logout'),
-}
-
-export default api
