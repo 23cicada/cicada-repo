@@ -6,12 +6,12 @@ const messageBoardApi = {
     await service.get<MessageBoardEntry[]>('/msg-board'),
 
   queryMessageBoardDetail: async (id: string) =>
-    await service.get<null, string>(`/msg-board/detail/${id}`),
+    await service.get<MessageBoardEntry>(`/msg-board/detail/${id}`),
 
   createMessageBoard: async ({
     text,
     username,
-  }: Omit<MessageBoardEntry, 'id'>) =>
+  }: Pick<MessageBoardEntry, 'text' | 'username'>) =>
     await service.post<null, string>(`/msg-board/new`, {
       text,
       username,

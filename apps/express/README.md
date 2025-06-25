@@ -6,3 +6,21 @@
 
 Rewrite relative import extensions with flag
 https://github.com/microsoft/TypeScript/pull/59767
+
+Passwordjs
+
+`passport.authenticate([strategyName])`, `req.login()`: Authenticate the request.
+
+`LocalStrategy`: When authenticating a request, a strategy parses the credential contained in the request.
+
+`serializeUser`, `deserializeUser`: Passport serializes and deserializes user information to and from the session.
+
+`passport.authenticate('session')` | `passport.session()`: The session itself can be authenticated using the built-in session strategy.
+
+`logout()`: Clear the login session
+
+passport.authenticate & req.login() => LocalStrategy(verify) => serializeUser(Login session is established)
+
+passport.session() => deserializeUser => req.user
+
+req.logout()

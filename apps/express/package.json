@@ -12,18 +12,19 @@
     "@repo/eslint-config": "workspace:^",
     "@repo/typescript-config": "workspace:^",
     "@types/compression": "^1.7.5",
+    "@types/cors": "^2.8.19",
     "@types/express": "^5.0.0",
     "@types/express-session": "^1.18.1",
     "@types/node": "^22.10.6",
     "@types/passport": "^1.0.17",
     "@types/passport-local": "^1.0.38",
     "@types/pg": "^8.15.1",
-    "@types/cors": "^2.8.19",
     "eslint": "^9.17.0",
     "typescript": "^5.7.3"
   },
   "dependencies": {
     "@repo/types": "workspace:^",
+    "bcryptjs": "^3.0.2",
     "compression": "^1.8.0",
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",
@@ -38,6 +39,11 @@
     "pg": "^8.16.0"
   },
   "imports": {
-    "#src/*": "./src/*"
+    "#src/*": "./src/*",
+    "#controllers/*": "./src/controllers/*",
+    "#db/*": "./src/db/*",
+    "#errors/*": "./src/errors/*",
+    "#middlewares/*": "./src/middlewares/*",
+    "#routes/*": "./src/routes/*"
   }
 }

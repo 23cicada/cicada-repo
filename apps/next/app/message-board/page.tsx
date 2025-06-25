@@ -22,7 +22,15 @@ const MessageBoard: React.FC = async () => {
             <p>
               <strong>{msg.username}</strong>: {msg.text}
             </p>
-            <button>Detail</button> <DeleteButton id={msg.id} />
+            <Link
+              href={{
+                pathname: '/message-board/detail',
+                query: { id: msg.id },
+              }}
+            >
+              Detail
+            </Link>{' '}
+            <DeleteButton id={msg.id} />
           </li>
         ))}
       </ul>

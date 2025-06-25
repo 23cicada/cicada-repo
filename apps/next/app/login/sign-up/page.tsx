@@ -7,10 +7,13 @@ const Page = () => {
   return (
     <form action={formAction}>
       <h1>Sign Up</h1>
-      <label htmlFor="username">Username</label>
-      <input id="username" name="username" placeholder="username" type="text" />
-      <label htmlFor="password">Password</label>
-      <input id="password" name="password" type="password" />
+      <label>
+        Username: <input name="username" placeholder="username" type="text" />
+      </label>
+      <br />
+      <label>
+        Password: <input name="password" type="password" />
+      </label>
       <button type="submit" disabled={isPending}>
         {isPending ? 'Signing up...' : 'Sign Up'}
       </button>

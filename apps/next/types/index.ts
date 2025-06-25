@@ -7,6 +7,7 @@ type MessageBoardEntry = {
   username: string
   text: string
   id: string
+  added: string
 }
 
 export type { Username, MessageBoardEntry }
