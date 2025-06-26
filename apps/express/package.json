@@ -9,6 +9,7 @@
     "lint": "pnpm eslint"
   },
   "devDependencies": {
+    "@prisma/client": "^6.10.1",
     "@repo/eslint-config": "workspace:^",
     "@repo/typescript-config": "workspace:^",
     "@types/compression": "^1.7.5",
@@ -20,6 +21,7 @@
     "@types/passport-local": "^1.0.38",
     "@types/pg": "^8.15.1",
     "eslint": "^9.17.0",
+    "prisma": "^6.10.1",
     "typescript": "^5.7.3"
   },
   "dependencies": {
